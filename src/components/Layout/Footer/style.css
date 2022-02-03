@@ -1,0 +1,11 @@
+.part-footer {
+    min-height: 11vh;
+    margin: 0;
+    padding: 0;
+  }
+  .footer-top{
+  min-height: 3vh;
+   background-image: url("../../../../public/pic/grass.jpg");
+   background-repeat: repeat-x;
+   background-position: right top;
+  }

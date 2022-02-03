@@ -1,0 +1,19 @@
+.part-header {
+  min-height: 15vh;
+}
+.estimate-img{
+  height: 25px;
+}
+.menu-pointer {
+  cursor: pointer;
+}
+
+.tooltip-inner {
+  background-color: transparent !important; /* Set box color to red */
+  color: black !important; /* Set text color to black */
+}
+
+.tooltip .tooltip-inner {
+  background-color: #FFFFFF !important; 
+  color: black
+}
