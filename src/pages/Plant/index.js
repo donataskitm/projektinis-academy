@@ -49,7 +49,7 @@ function Plant() {
                   </Row>
                   <Row>
                     {Object.entries(info).map(([key, value]) => (
-                      is_array(value) ?
+                      is_array(value) &&
                         (
                           <Row key={key}>
                             <Col xs={12} className="text-center">
@@ -62,7 +62,6 @@ function Plant() {
                             ))}
                           </Row>
                         )
-                        : (null)
                     ))}
                   </Row>
                 </div>
