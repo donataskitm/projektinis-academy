@@ -6,18 +6,18 @@ import {CategoryContext} from '../../contexts/context';
 import useLocalStorage from '../../hooks/useLocalStorage';
 import  {serviceFilterForm}  from '../../services/serviceFilterForm';
 
-function Filter() {
+function PlantSearch() {
 
-  const [savedValue, setValue] = useLocalStorage("input", []);
+  const [savedValue, setValue]=useLocalStorage("input", []);
 
   const getSelectedValue = (event)=>{
 
     let isFoundItem = savedValue.filter((storedItem) => storedItem.category === event.target.id);
-    if( isFoundItem== 0){
+    if( isFoundItem == 0){
       serviceFilterForm.addSelectedValue(event, savedValue, setValue);
     }
     else{
-      if(event.target.value ==="Pasirinkti..."){
+      if(event.target.value === "Pasirinkti..."){
         serviceFilterForm.deleteSelectedValue(event, savedValue, setValue);
       } else{
         serviceFilterForm.changeSelectedValue(event, savedValue, setValue);
@@ -55,4 +55,4 @@ function Filter() {
   );
 }
 
-export default Filter;
+export default PlantSearch;

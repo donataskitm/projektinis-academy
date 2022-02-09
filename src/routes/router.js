@@ -1,6 +1,6 @@
 import React from 'react';
 import Home from '../pages/Home';
-import Filter from '../pages/Filter';
+import PlantSearch from '../pages/PlantSearch';
 import Estimate from '../pages/Estimate';
 import Login from '../pages/Login';
 import Register from '../pages/Register';
@@ -40,7 +40,7 @@ function Router() {
         <StyledDiv>
           <Routes>
             <Route path={ROUTES.DEFAULT} element={<Home />} />
-            <Route path={ROUTES.FILTER} element={<Filter />} />
+            <Route path={ROUTES.PLANTSEARCH} element={<PlantSearch />} />
             <Route path={ROUTES.ESTIMATE} element={<Estimate />} />
             <Route path={ROUTES.REGISTER} element={<SignOut><Register /></SignOut>} />
             <Route path={ROUTES.LOGIN} element={<SignOut><Login /></SignOut>} />

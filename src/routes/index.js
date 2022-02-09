@@ -1,6 +1,6 @@
 export const ROUTES = {
   DEFAULT: '/',
-  FILTER: '/atranka',
+  PLANTSEARCH: '/atranka',
   ESTIMATE: '/samata',
   REGISTER: '/registracija',
   LOGIN: '/prisijungimas',
