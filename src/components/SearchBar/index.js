@@ -37,7 +37,7 @@ function SearchBar(props) {
         <Button
           name={"Ieškoti"}
           color={"success"}
-          function={redirectSearch} />
+          onClick={redirectSearch} />
       </Col>
     </Row>
   );

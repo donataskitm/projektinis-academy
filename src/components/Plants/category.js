@@ -30,7 +30,7 @@ function Category(props) {
         </div>
       )}
       <div className="py-5">
-        <Button name={"Atgal"} color={"success"} function={returnState}></Button>
+        <Button name={"Atgal"} color={"success"} onClick={returnState}></Button>
       </div>
     </div>
   );

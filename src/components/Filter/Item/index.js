@@ -27,7 +27,7 @@ const Item = (info) => {
           <Button 
             name={"Peržiūrėti"} 
             color={"success"} 
-            function={info.handleSubmit} />
+            onClick={info.handleSubmit} />
         </Col>
       </Row>
       <Row>
@@ -35,7 +35,7 @@ const Item = (info) => {
           <Button
             name={"Pridėti"}
             color={"warning"}
-            function={info.handler}/>
+            onClick={info.handler}/>
                    
         </Col>
       </Row>

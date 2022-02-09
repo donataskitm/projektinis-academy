@@ -69,13 +69,13 @@ function Header(props) {
               <Button
                 name="Prisijungti"
                 color="warning"
-                function={() => onClick("/prisijungimas")} /> 
+                onClick={() => onClick("/prisijungimas")} /> 
             </Column>
             <Column md={1}>
               <Button
                 name="Registruotis"
                 color="danger"
-                function={() => onClick("/registracija")} /> 
+                onClick={() => onClick("/registracija")} /> 
             </Column></>
           :
           <>
@@ -83,13 +83,13 @@ function Header(props) {
               <Button
                 name="Atsijungti"
                 color="danger"
-                function={() => onLogout("/")} /> 
+                onClick={() => onLogout("/")} /> 
             </Column>
             <Column md={1}>
               <Button
                 name="Profilis"
                 color="warning"
-                function={() => onClick("/profilis")} /> 
+                onClick={() => onClick("/profilis")} /> 
             </Column>
           </>
       }

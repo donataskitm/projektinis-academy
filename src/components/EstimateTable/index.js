@@ -78,15 +78,15 @@ function EstimateTable() {
                 <td><Button
                   name={"Trinti sąmatą"}
                   color={"danger"}
-                  function= {clear}/>
+                  onClick= {clear}/>
                 <Modal show={show} onHide={handleClose} animation={false}>
                   <Modal.Header closeButton>
                     <Modal.Title>Ar tikrai trinti sąmatą?</Modal.Title>
                   </Modal.Header>
                   <Modal.Footer>
-                    <Button name="Trinti" color="danger" function={clearModalButton}>
+                    <Button name="Trinti" color="danger" onClick={clearModalButton}>
                     </Button>
-                    <Button name="Atšaukti" color="success" function={handleClose}>
+                    <Button name="Atšaukti" color="success" onClick={handleClose}>
                     </Button>
                   </Modal.Footer>
                 </Modal>

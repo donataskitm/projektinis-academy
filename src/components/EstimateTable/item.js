@@ -26,7 +26,7 @@ function TableRow(props) {
         <Button
           name={"Trinti"}
           color={"danger"}
-          function={props.deleteClick} />
+          onClick={props.deleteClick} />
       </td>
     </tr>
   );

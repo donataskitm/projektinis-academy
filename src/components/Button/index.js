@@ -10,19 +10,19 @@ function Button(props) {
       <BootstrapButton
         variant={props.color}
         type="submit"
-        onClick={() => props.function()}>{props.name}</BootstrapButton>
+        onClick={() => props.onClick()}>{props.name}</BootstrapButton>
     </div>
   );
 }
 
 Button.propTypes = {
   color: PropTypes.string.isRequired,
-  function: PropTypes.func,
+  onClick: PropTypes.func,
   name: PropTypes.string.isRequired
 };
 
 Button.defaultProps = {
-  function: ()=>{}
+  onClick: ()=>{}
 };
 
 export default Button;

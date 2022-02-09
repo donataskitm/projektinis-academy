@@ -71,7 +71,7 @@ function Plant() {
           </div>
         )}
         <div className="py-5">
-          <Button name={"Atgal"} color={"success"} function={back}></Button>
+          <Button name={"Atgal"} color={"success"} onClick={back}></Button>
         </div>
       </div>
     </Row>
