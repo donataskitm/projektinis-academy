@@ -25,7 +25,7 @@ function Plants() {
         {isTaxonomy ?
           <CategoryContext.Provider
             value={{
-              returnTaxonomy: returnTaxonomy
+              returnTaxonomy
             }}>
             <Taxonomy />
           </CategoryContext.Provider> :
