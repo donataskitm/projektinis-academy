@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import { Table, Modal } from 'react-bootstrap';
-import TableRow from './item';
+import TableRow from './TableRow';
 import Button from '../Button';
 import useLocalStorage from '../../hooks/useLocalStorage';
 import { serviceFunctions } from '../../services/serviceFunctions';
