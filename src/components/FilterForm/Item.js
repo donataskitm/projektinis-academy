@@ -3,7 +3,7 @@ import React from 'react';
 import {Row, Col} from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import useFetch from '../../hooks/Fetch';
-import {CategoryContext} from '../../services/context';
+import {CategoryContext} from '../../contexts/context';
 import "./style.css";
 import headers from '../../data/fetchAttributes';
 

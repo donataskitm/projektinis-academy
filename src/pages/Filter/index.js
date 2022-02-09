@@ -2,7 +2,7 @@ import React from 'react';
 import { Row, Col } from 'react-bootstrap';
 import List from '../../components/Filter/List';
 import Filters from '../../components/FilterForm/Filters';
-import {CategoryContext} from '../../services/context';
+import {CategoryContext} from '../../contexts/context';
 import useLocalStorage from '../../hooks/useLocalStorage';
 import  {serviceFilterForm}  from '../../services/serviceFilterForm';
 

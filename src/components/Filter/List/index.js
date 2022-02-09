@@ -8,7 +8,7 @@ import * as constants from '../../../config/constants';
 import useLocalStorage from '../../../hooks/useLocalStorage';
 import PropTypes from 'prop-types';
 import { serviceFilterForm } from '../../../services/serviceFilterForm';
-import { HeaderContext } from '../../../services/context';
+import { HeaderContext } from '../../../contexts/context';
 import headers from '../../../data/fetchAttributes';
 import { Modal } from 'react-bootstrap';
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Card } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
-import {CategoryContext} from '../../../services/context';
+import {CategoryContext} from '../../../contexts/context';
 import "./style.css";
 import useLocalStorage from '../../../hooks/useLocalStorage';
 

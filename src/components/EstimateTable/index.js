@@ -4,7 +4,7 @@ import TableRow from './TableRow';
 import Button from '../Button';
 import useLocalStorage from '../../hooks/useLocalStorage';
 import { serviceFunctions } from '../../services/serviceFunctions';
-import {CategoryContext, HeaderContext} from '../../services/context';
+import {CategoryContext, HeaderContext} from '../../contexts/context';
 
 function EstimateTable() {
   const DELETED_ITEM = 1;

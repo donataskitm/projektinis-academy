@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import "./style.css";
 import PropTypes from 'prop-types';
-import { HeaderContext } from "../../services/context";
+import { HeaderContext } from "../../contexts/context";
 import Header from "./Header";
 import useLocalStorage from "../../hooks/useLocalStorage";
 

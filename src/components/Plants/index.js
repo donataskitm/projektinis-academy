@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import "./style.css";
 import Taxonomy from './taxonomy';
 import Category from './category';
-import {CategoryContext} from '../../services/context';
+import {CategoryContext} from '../../contexts/context';
 
 function Plants() {
 

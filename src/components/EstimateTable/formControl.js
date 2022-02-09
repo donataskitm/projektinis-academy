@@ -1,7 +1,7 @@
 import React from 'react';
 import { Form } from 'react-bootstrap';
 import PropTypes from 'prop-types';
-import {CategoryContext} from '../../services/context';
+import {CategoryContext} from '../../contexts/context';
 
 const ControlForm = (props)=> {
 

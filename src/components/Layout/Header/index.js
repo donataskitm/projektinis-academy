@@ -5,7 +5,7 @@ import "./style.css";
 import { useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Button from '../../Button';
-import { HeaderContext} from '../../../services/context';
+import { HeaderContext} from '../../../contexts/context';
 import Column from './Column';
 import NavBar from './NavBar';
 
