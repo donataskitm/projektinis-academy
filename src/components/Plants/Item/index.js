@@ -17,17 +17,19 @@ const Item = (info) => {
     event.target.src = '/pic/taxonomies.jpg';
   };
 
+  const redirectToCategoryOrPage = () =>{
+    if(info.id){
+      setValue([]);
+      navigate('/atranka', {state: {apiLink: apiLink}});
+    } else{
+      value.returnTaxonomy((info.name));
+    }
+  };
+
   return (
 
     <Card key={info}
-      onClick={() => 
-      {if(info.id){
-        setValue([]);
-        navigate('/atranka', {state: {apiLink: apiLink}});
-      } else{
-        value.returnTaxonomy((info.name));
-      }}
-      }
+      onClick={redirectToCategoryOrPage}
       className="text-center m-1 card-style">
       <Card.Body>
         <Card.Text className="fw-bold text-center">
