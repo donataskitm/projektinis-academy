@@ -1,18 +1,13 @@
 import {SQUARE_CM_PER_SQUARE_M} from '../config/constants';
+import { convertDataType } from './convertDataType';
 
-const STRING_TO_NUMBER = 1;
-
-const convertStringToNumber = (number) => {
-  const convertedNumber = parseFloat(number).toFixed(2) * STRING_TO_NUMBER;
-  return (convertedNumber);
-};
 
 const countTotal = (savedValue) => {
   let total = 0;
   savedValue.forEach(function (item) {
     total = total + item.totalAmount;
   });
-  return serviceFunctions.convertStringToNumber(total);
+  return convertDataType.convertStringToNumber(total);
 };
 
 const countTotalQuantity = (item, value) => {
@@ -20,8 +15,7 @@ const countTotalQuantity = (item, value) => {
   return Math.ceil(quantity);
 };
 
-export const serviceFunctions = {
-  convertStringToNumber,
+export const EstimateCounting = {
   countTotal,
   countTotalQuantity
 };

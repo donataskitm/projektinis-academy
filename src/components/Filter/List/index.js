@@ -7,10 +7,10 @@ import Pagination from '../../Layout/Pagination';
 import * as constants from '../../../config/constants';
 import useLocalStorage from '../../../hooks/useLocalStorage';
 import PropTypes from 'prop-types';
-import { serviceFilterForm } from '../../../services/serviceFilterForm';
 import { HeaderContext } from '../../../contexts/context';
 import headers from '../../../data/fetchAttributes';
 import { Modal } from 'react-bootstrap';
+import { makeApiEndpoint } from '../../../services/makeApiEndpoint';
 
 function Plants(props) {
 
@@ -30,7 +30,7 @@ function Plants(props) {
 
   let apiLink;
   if(props.selection.length !== 0){
-    apiLink = process.env.REACT_APP_API_FILTER + serviceFilterForm.formatLinkPart(props.selection);
+    apiLink = process.env.REACT_APP_API_FILTER + makeApiEndpoint.formatLinkPart(props.selection);
   } else {
     apiLink = state!==null ? state.apiLink : process.env.REACT_APP_API_ALL_POSTS ;
   }

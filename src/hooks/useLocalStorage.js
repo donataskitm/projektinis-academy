@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { serviceFunctions } from "../services/serviceFunctions";
+import { EstimateCounting } from "../services/estimateCounting";
+import { convertDataType } from "../services/convertDataType";
 
 const useLocalStorage = (keyName, defaultValue) => {
 
@@ -61,14 +62,14 @@ const useLocalStorage = (keyName, defaultValue) => {
       let newKeys = [];
       newKeys.push((item.id === addedItem.id) ? item[key] = value : null);
       if (item.id === addedItem.id && key === "area") {
-        const totalQuantity = serviceFunctions.countTotalQuantity(item, value);
+        const totalQuantity = EstimateCounting.countTotalQuantity(item, value);
         const totalPrice = totalQuantity *  item.cost;
         newKeys.push(item.totalQuantity = totalQuantity);
-        newKeys.push(item.totalAmount = serviceFunctions.convertStringToNumber(totalPrice));
+        newKeys.push(item.totalAmount = convertDataType.convertStringToNumber(totalPrice));
       }
       if (item.id === addedItem.id && key === "cost") {
         const totalPrice = item.totalQuantity * item.cost;
-        newKeys.push(item.totalAmount = serviceFunctions.convertStringToNumber(totalPrice));
+        newKeys.push(item.totalAmount = convertDataType.convertStringToNumber(totalPrice));
       }
       return newKeys;
     });

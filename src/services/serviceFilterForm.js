@@ -18,18 +18,8 @@ const changeSelectedValue= (event,savedValue, setValue)=>{
   setValue([...savedValue]);
 };
 
-const formatLinkPart= (savedValue)=>{
-  let apiLinkPart = '';
-  savedValue.forEach( (item) => {
-    apiLinkPart = apiLinkPart + item.category + "=" + item.id+"&";
-  });
-  return apiLinkPart;
-};
-
-
 export const serviceFilterForm = {
   addSelectedValue,
   deleteSelectedValue,
-  changeSelectedValue,
-  formatLinkPart
+  changeSelectedValue
 };

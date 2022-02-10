@@ -3,7 +3,7 @@ import { Table, Modal } from 'react-bootstrap';
 import TableRow from './TableRow';
 import Button from '../Button';
 import useLocalStorage from '../../hooks/useLocalStorage';
-import { serviceFunctions } from '../../services/serviceFunctions';
+import { EstimateCounting } from '../../services/estimateCounting';
 import {CategoryContext, HeaderContext} from '../../contexts/context';
 
 function EstimateTable() {
@@ -93,7 +93,7 @@ function EstimateTable() {
                 </td>
                 <td>Bendra suma:
                 </td>
-                <td colSpan="2"> {serviceFunctions.countTotal(savedValue) || 0} eur
+                <td colSpan="2"> {EstimateCounting.countTotal(savedValue) || 0} eur
                 </td>
               </tr>
             </tbody>
