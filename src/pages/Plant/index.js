@@ -5,6 +5,7 @@ import useFetch from '../../hooks/Fetch';
 import { useParams, useNavigate } from "react-router-dom";
 import TaxonomyName from '../../components/Plants/taxonomyName';
 import headers from '../../data/fetchAttributes';
+import { determineDataType } from '../../services/determineDataType';
 
 function Plant() {
 
@@ -12,11 +13,7 @@ function Plant() {
   const navigation = useNavigate();
   
   const { isLoading, data } = useFetch(process.env.REACT_APP_API_POST + id, headers);
-  function is_array(value) {
-    if (Object.prototype.toString.call(value) === '[object Array]') {
-      return true;
-    } else return false;
-  }
+
 
   const back = ()=>{
     navigation('/atranka');
@@ -49,7 +46,7 @@ function Plant() {
                   </Row>
                   <Row>
                     {Object.entries(info).map(([key, value]) => (
-                      is_array(value) &&
+                      determineDataType.is_array(value) &&
                         (
                           <Row key={key}>
                             <Col xs={12} className="text-center">
