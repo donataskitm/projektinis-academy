@@ -10,13 +10,13 @@ function SearchBar(props) {
   const navigate = useNavigate();
   let textInput = React.createRef();
   
-  const [, setValue] = useLocalStorage("input", []);
+  const [, saveItemToStorage] = useLocalStorage("input", []);
   
   const redirectSearch = () => {
     const form = textInput.current;
     const inputValue = form['searchInput'].value;
     const apiLink = process.env.REACT_APP_API_SEARCH + inputValue;
-    setValue([]);
+    saveItemToStorage([]);
     navigate('/atranka', { state: { apiLink: apiLink } });
   };
   

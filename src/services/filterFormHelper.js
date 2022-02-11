@@ -1,21 +1,21 @@
-const addSelectOptInStorage = (event, savedValue, setValue)=>{
+const addSelectOptInStorage = (event, itemInStorage, saveItemToStorage)=>{
   
-  setValue([...savedValue, {["category"]: event.target.id, ["id"]: event.target.value}]);
+  saveItemToStorage([...itemInStorage, {["category"]: event.target.id, ["id"]: event.target.value}]);
 };
 
-const deleteSelectOptInStorage = (selectedValue, savedValue, setValue)=>{
+const deleteSelectOptInStorage = (selectedValue, itemInStorage, saveItemToStorage)=>{
   const value = selectedValue.category? selectedValue.category : selectedValue.target.id;
-  setValue( savedValue.filter(storedItem => storedItem.category !==  value));
+  saveItemToStorage(itemInStorage.filter(storedItem => storedItem.category !==  value));
 };
 
-const changeSelectOptInStorage = (event, savedValue, setValue)=>{
+const changeSelectOptInStorage = (event, itemInStorage, saveItemToStorage)=>{
 
-  savedValue.forEach( (item) => {
+  itemInStorage.forEach( (item) => {
     let newKey = [];
     newKey.push((item.category === event.target.id) && (item["id"] = event.target.value));
     return newKey;
   });
-  setValue([...savedValue]);
+  saveItemToStorage([...itemInStorage]);
 };
 
 export const serviceFilterForm = {

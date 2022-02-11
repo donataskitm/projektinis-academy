@@ -4,7 +4,7 @@ import { DataTypeConverter } from "../services/dataTypeConverter";
 
 const useLocalStorage = (keyName, defaultValue) => {
 
-  const [storedValue, setStoredValue] = useState(() => {
+  const [itemInStorage, setItem] = useState(() => {
     try {
       const value = localStorage.getItem(keyName);
       if (value) {
@@ -19,34 +19,34 @@ const useLocalStorage = (keyName, defaultValue) => {
   }
   );
 
-  const setValue = newValue => {
+  const saveItemToStorage = newItem => {
     try {
-      localStorage.setItem(keyName, JSON.stringify(newValue));
+      localStorage.setItem(keyName, JSON.stringify(newItem));
     } catch (err) {
       console.log(err);
     }
-    setStoredValue(newValue);
+    setItem(newItem);
   };
 
-  const clearValue = (addedItem) => {
-    setValue([...storedValue.filter((storedItem) => storedItem.id !== addedItem.id)]);
+  const clearItemFromStorage = (addedItem) => {
+    saveItemToStorage([...itemInStorage.filter((storedItem) => storedItem.id !== addedItem.id)]);
   };
 
-  const clearAllValues = () => {
-    setValue([]);
+  const clearAllItemsFromStorage = () => {
+    saveItemToStorage([]);
   };
 
-  const addValue = (addedItem) => {
+  const addValueToItem = (addedItem) => {
 
-    let isFoundItem = storedValue.filter((storedItem) => storedItem.id === addedItem.id);
+    let isFoundItem = itemInStorage.filter((storedItem) => storedItem.id === addedItem.id);
     let message;
     if (isFoundItem.length === 0) {
       addedItem["cost"]= 0;
       addedItem["area"]= 0;
       addedItem["totalQuantity"]= 0;
       addedItem["totalAmount"]= 0;
-      storedValue.push(addedItem);
-      setValue(storedValue);
+      itemInStorage.push(addedItem);
+      saveItemToStorage(itemInStorage);
       message="Pridėta į sąmatą";
     } else {
       message="Jau yra įtraukta į sąmatą";
@@ -54,11 +54,11 @@ const useLocalStorage = (keyName, defaultValue) => {
     return message;
   };
 
-  const addKeyValue = (event, addedItem) => {
+  const addKeyValueToItem = (event, addedItem) => {
     const key = event.target.id;
     const value = parseFloat(event.target.value);
 
-    storedValue.forEach(function (item) {
+    itemInStorage.forEach(function (item) {
       let newKeys = [];
       newKeys.push((item.id === addedItem.id) ? item[key] = value : null);
       if (item.id === addedItem.id && key === "area") {
@@ -73,10 +73,15 @@ const useLocalStorage = (keyName, defaultValue) => {
       }
       return newKeys;
     });
-    setValue([...storedValue]);
+    saveItemToStorage([...itemInStorage]);
   };
 
-  return [storedValue, setValue, clearValue, clearAllValues, addValue, addKeyValue];
+  return [itemInStorage, 
+    saveItemToStorage, 
+    clearItemFromStorage, 
+    clearAllItemsFromStorage, 
+    addValueToItem, 
+    addKeyValueToItem];
 };
 
 export default useLocalStorage;

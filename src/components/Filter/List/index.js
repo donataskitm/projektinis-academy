@@ -14,7 +14,7 @@ import { makeApiEndpoint } from '../../../services/apiEndpointMaker';
 
 function Plants(props) {
 
-  const [storedValue, , , , addValue] = useLocalStorage("samata", []);
+  const [itemInStorage, , , , addValueToItem] = useLocalStorage("samata", []);
 
   const [message, setState] = useState({
     text: '', 
@@ -43,9 +43,9 @@ function Plants(props) {
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   const handleClick = (item) => {
-    let receivedMessage = addValue(item);
+    let receivedMessage = addValueToItem(item);
     setState({text: receivedMessage, showMessage: true});
-    value.returnItems(storedValue.length || 0);
+    value.returnItems(itemInStorage.length || 0);
     setTimeout(() => {
       setState({text: receivedMessage, showMessage: false});
     }, 1000);

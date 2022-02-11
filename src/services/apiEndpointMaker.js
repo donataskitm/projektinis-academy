@@ -1,6 +1,6 @@
-const formatLinkPart= (savedValue)=>{
+const formatLinkPart= (itemInStorage)=>{
   let apiLinkPart = '';
-  savedValue.forEach( (item) => {
+  itemInStorage.forEach( (item) => {
     apiLinkPart = apiLinkPart + item.category + "=" + item.id+"&";
   });
   return apiLinkPart;

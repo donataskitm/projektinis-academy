@@ -19,12 +19,12 @@ const Item = (props) => {
 
   const value = React.useContext(CategoryContext);
   
-  let isFoundItem = (value.savedValue).filter((storedItem) => storedItem.category === props.name);
+  let isFoundItem = (value.itemInStorage).filter((storedItem) => storedItem.category === props.name);
   const selectedItem = isFoundItem.length > 0;
   const selectValue = selectedItem ? isFoundItem[0].id : "";
-  const selectWidth = selectedItem ? constants.widthListWithBin : constants.widthListNoBin ;
-  const binWidth = selectedItem ? constants.widthWithBin : constants.widthNoBin ;
-  const selectStyle = selectedItem ? 'border border-success border-2' : ""  ;
+  const selectWidth = selectedItem ? constants.widthListWithBin : constants.widthListNoBin;
+  const binWidth = selectedItem ? constants.widthWithBin : constants.widthNoBin;
+  const selectStyle = selectedItem ? 'border border-success border-2' : "" ;
   const selectImage = selectedItem ? 
     <img
       src="/pic/bin.png"

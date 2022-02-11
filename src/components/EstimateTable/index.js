@@ -8,7 +8,7 @@ import {CategoryContext, HeaderContext} from '../../contexts/context';
 
 function EstimateTable() {
   const DELETED_ITEM = 1;
-  const [savedValue,, clearValue, clearAllValues,, addKeyValue] = useLocalStorage("samata", []);
+  const [itemInStorage,, clearItemFromStorage, clearAllItemsFromStorage,, addKeyValueToItem] = useLocalStorage("samata", []);
   
   const value = React.useContext(HeaderContext);
 
@@ -16,12 +16,12 @@ function EstimateTable() {
   const handleClose = () => setShow(false);
 
   const deleteClick = (item) => {
-    value.returnItems(savedValue.length - DELETED_ITEM);
-    clearValue(item);
+    value.returnItems(itemInStorage.length - DELETED_ITEM);
+    clearItemFromStorage(item);
   };
 
   const getValue = (event, storedValue) => {
-    addKeyValue(event, storedValue);
+    addKeyValueToItem(event, storedValue);
   };
 
   const clear = () => {
@@ -29,7 +29,7 @@ function EstimateTable() {
   };
 
   const clearModalButton = () => {
-    clearAllValues();
+    clearAllItemsFromStorage();
     value.returnItems(0);
   };
 
@@ -37,7 +37,7 @@ function EstimateTable() {
 
     <div>
       {
-        savedValue.length > 0 ?
+        itemInStorage.length > 0 ?
           <Table striped bordered hover responsive="sm">
             <thead>
               <tr>
@@ -54,7 +54,7 @@ function EstimateTable() {
             </thead>
             <tbody>
 
-              {savedValue.map((item, index) => (
+              {itemInStorage.map((item, index) => (
                 <CategoryContext.Provider  key={item.id}
                   value={{
                     getValue: getValue
@@ -93,7 +93,7 @@ function EstimateTable() {
                 </td>
                 <td>Bendra suma:
                 </td>
-                <td colSpan="2"> {EstimateCounter.countTotal(savedValue) || 0} eur
+                <td colSpan="2"> {EstimateCounter.countTotal(itemInStorage) || 0} eur
                 </td>
               </tr>
             </tbody>

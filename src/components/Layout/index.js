@@ -7,8 +7,8 @@ import useLocalStorage from "../../hooks/useLocalStorage";
 
 const Layout = (props) => {
 
-  const [storedValue] = useLocalStorage("samata", []);
-  const [itemsNumber, setItemsNumber] = useState(storedValue.length);
+  const [itemInStorage] = useLocalStorage("samata", []);
+  const [itemsNumber, setItemsNumber] = useState(itemInStorage.length);
   const [login, setLogin] = useState(() => {
     const initialState = isToken();
     return initialState;

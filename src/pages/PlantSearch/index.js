@@ -8,25 +8,25 @@ import  {serviceFilterForm}  from '../../services/filterFormHelper';
 
 function PlantSearch() {
 
-  const [savedValue, setValue]=useLocalStorage("input", []);
+  const [itemInStorage, saveItemToStorage]=useLocalStorage("input", []);
 
   const getSelectedValue = (event)=>{
 
-    let isFoundItem = savedValue.filter((storedItem) => storedItem.category === event.target.id);
+    let isFoundItem = itemInStorage.filter((storedItem) => storedItem.category === event.target.id);
     if( isFoundItem == 0){
-      serviceFilterForm.addSelectOptInStorage(event, savedValue, setValue);
+      serviceFilterForm.addSelectOptInStorage(event, itemInStorage, saveItemToStorage);
     }
     else{
       if(event.target.value === "Pasirinkti..."){
-        serviceFilterForm.deleteSelectOptInStorage(event, savedValue, setValue);
+        serviceFilterForm.deleteSelectOptInStorage(event, itemInStorage, saveItemToStorage);
       } else{
-        serviceFilterForm.changeSelectOptInStorage(event, savedValue, setValue);
+        serviceFilterForm.changeSelectOptInStorage(event, itemInStorage, saveItemToStorage);
       }
     }
   };
   const deleteSelection = (category) => {
     console.log(category);
-    serviceFilterForm.deleteSelectedValue(category, savedValue, setValue);
+    serviceFilterForm.deleteSelectedValue(category, itemInStorage, saveItemToStorage);
   };
 
   return (
@@ -37,13 +37,13 @@ function PlantSearch() {
       <Col>
         <Row className="row gx-0 vw-99">
           <Col md={8} className="min-vw-75">
-            <List selection={savedValue}/>
+            <List selection={itemInStorage}/>
           </Col>
           <Col md={4} className="min-vw-25">
             <CategoryContext.Provider
               value={{
                 getSelectedValue: getSelectedValue,
-                savedValue: savedValue,
+                itemInStorage: itemInStorage,
                 deleteSelection: deleteSelection
               }}>
               <Filters/>

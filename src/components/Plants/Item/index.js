@@ -8,7 +8,7 @@ import useLocalStorage from '../../../hooks/useLocalStorage';
 const Item = (info) => {
 
   const value = React.useContext(CategoryContext);
-  const [, setValue] = useLocalStorage("input", []);
+  const [, saveItemToStorage] = useLocalStorage("input", []);
   const navigate = useNavigate();
 
   const apiLink = process.env.REACT_APP_API_POST_CATAX + info.id + '?cat=' + info.taxonomy;
@@ -19,7 +19,7 @@ const Item = (info) => {
 
   const redirectToCategoryOrPage = () =>{
     if(info.id){
-      setValue([]);
+      saveItemToStorage([]);
       navigate('/atranka', {state: {apiLink: apiLink}});
     } else{
       value.returnTaxonomy((info.name));
