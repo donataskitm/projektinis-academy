@@ -26,7 +26,7 @@ const Layout = (props) => {
     <div className="main">
       <HeaderContext.Provider
         value={{
-          returnItems: returnItems, returnLogin: returnLogin
+          returnItems, returnLogin
         }}>
         <Header number={itemsNumber} login={login}/>
         {props.children}

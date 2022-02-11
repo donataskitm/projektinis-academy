@@ -11,10 +11,11 @@ import { HeaderContext } from '../../../contexts/context';
 import headers from '../../../data/fetchAttributes';
 import { Modal } from 'react-bootstrap';
 import { makeApiEndpoint } from '../../../services/apiEndpointMaker';
+import { EstimateStorage } from '../../../services/estimateStorage';
 
 function Plants(props) {
 
-  const [itemInStorage, , , , addValueToItem] = useLocalStorage("samata", []);
+  const [itemInStorage, saveItemToStorage] = useLocalStorage("samata", []);
 
   const [message, setState] = useState({
     text: '', 
@@ -43,7 +44,7 @@ function Plants(props) {
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   const handleClick = (item) => {
-    let receivedMessage = addValueToItem(item);
+    let receivedMessage = EstimateStorage.addValueToItem(item, itemInStorage, saveItemToStorage);
     setState({text: receivedMessage, showMessage: true});
     value.returnItems(itemInStorage.length || 0);
     setTimeout(() => {
@@ -54,6 +55,8 @@ function Plants(props) {
   function redirectonClick (item) { 
     navigate(`/augalas/${item}`);
   }
+
+
   return (
     <div className="text-center py-5">
       <h4 className="text-center pb-3"> Augalų sąrašas</h4>

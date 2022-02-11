@@ -4,7 +4,7 @@ import List from '../../components/Filter/List';
 import Filters from '../../components/FilterForm/Filters';
 import {CategoryContext} from '../../contexts/context';
 import useLocalStorage from '../../hooks/useLocalStorage';
-import  {serviceFilterForm}  from '../../services/filterFormHelper';
+import {FilterFormHelper} from '../../services/filterFormHelper';
 
 function PlantSearch() {
 
@@ -14,19 +14,19 @@ function PlantSearch() {
 
     let isFoundItem = itemInStorage.filter((storedItem) => storedItem.category === event.target.id);
     if( isFoundItem == 0){
-      serviceFilterForm.addSelectOptInStorage(event, itemInStorage, saveItemToStorage);
+      FilterFormHelper.addSelectOptInStorage(event, itemInStorage, saveItemToStorage);
     }
     else{
       if(event.target.value === "Pasirinkti..."){
-        serviceFilterForm.deleteSelectOptInStorage(event, itemInStorage, saveItemToStorage);
+        FilterFormHelper.deleteSelectOptInStorage(event, itemInStorage, saveItemToStorage);
       } else{
-        serviceFilterForm.changeSelectOptInStorage(event, itemInStorage, saveItemToStorage);
+        FilterFormHelper.changeSelectOptInStorage(event, itemInStorage, saveItemToStorage);
       }
     }
   };
   const deleteSelection = (category) => {
     console.log(category);
-    serviceFilterForm.deleteSelectedValue(category, itemInStorage, saveItemToStorage);
+    FilterFormHelper.deleteSelectOptInStorage(category, itemInStorage, saveItemToStorage);
   };
 
   return (

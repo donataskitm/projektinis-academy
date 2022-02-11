@@ -5,10 +5,14 @@ import Button from '../Button';
 import useLocalStorage from '../../hooks/useLocalStorage';
 import { EstimateCounter } from '../../services/estimateCounter';
 import {CategoryContext, HeaderContext} from '../../contexts/context';
+import { EstimateStorage } from '../../services/estimateStorage';
 
 function EstimateTable() {
   const DELETED_ITEM = 1;
-  const [itemInStorage,, clearItemFromStorage, clearAllItemsFromStorage,, addKeyValueToItem] = useLocalStorage("samata", []);
+  const [itemInStorage, 
+    saveItemToStorage, 
+    clearItemFromStorage, 
+    clearAllItemsFromStorage] = useLocalStorage("samata", []);
   
   const value = React.useContext(HeaderContext);
 
@@ -21,7 +25,7 @@ function EstimateTable() {
   };
 
   const getValue = (event, storedValue) => {
-    addKeyValueToItem(event, storedValue);
+    EstimateStorage.addKeyValueToItem(event, storedValue, itemInStorage, saveItemToStorage);
   };
 
   const clear = () => {

@@ -3,8 +3,8 @@ const addSelectOptInStorage = (event, itemInStorage, saveItemToStorage)=>{
   saveItemToStorage([...itemInStorage, {["category"]: event.target.id, ["id"]: event.target.value}]);
 };
 
-const deleteSelectOptInStorage = (selectedValue, itemInStorage, saveItemToStorage)=>{
-  const value = selectedValue.category? selectedValue.category : selectedValue.target.id;
+const deleteSelectOptInStorage = (selectedItem, itemInStorage, saveItemToStorage)=>{
+  const value = selectedItem.category? selectedItem.category : selectedItem.target.id;
   saveItemToStorage(itemInStorage.filter(storedItem => storedItem.category !==  value));
 };
 
@@ -18,7 +18,7 @@ const changeSelectOptInStorage = (event, itemInStorage, saveItemToStorage)=>{
   saveItemToStorage([...itemInStorage]);
 };
 
-export const serviceFilterForm = {
+export const FilterFormHelper = {
   addSelectOptInStorage,
   deleteSelectOptInStorage,
   changeSelectOptInStorage
