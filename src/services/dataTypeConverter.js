@@ -5,6 +5,6 @@ const convertStringToNumber = (number) => {
   return (convertedNumber);
 };
 
-export const convertDataType = {
+export const DataTypeConverter = {
   convertStringToNumber
 };

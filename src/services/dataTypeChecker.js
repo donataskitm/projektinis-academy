@@ -4,6 +4,6 @@ function is_array(value) {
   } else return false;
 }
 
-export const determineDataType = {
+export const DataTypeChecker = {
   is_array
 };

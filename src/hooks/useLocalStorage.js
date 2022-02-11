@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { EstimateCounting } from "../services/estimateCounting";
-import { convertDataType } from "../services/convertDataType";
+import { EstimateCounter } from "../services/estimateCounter";
+import { DataTypeConverter } from "../services/dataTypeConverter";
 
 const useLocalStorage = (keyName, defaultValue) => {
 
@@ -62,14 +62,14 @@ const useLocalStorage = (keyName, defaultValue) => {
       let newKeys = [];
       newKeys.push((item.id === addedItem.id) ? item[key] = value : null);
       if (item.id === addedItem.id && key === "area") {
-        const totalQuantity = EstimateCounting.countTotalQuantity(item, value);
+        const totalQuantity = EstimateCounter.countTotalQuantity(item, value);
         const totalPrice = totalQuantity *  item.cost;
         newKeys.push(item.totalQuantity = totalQuantity);
-        newKeys.push(item.totalAmount = convertDataType.convertStringToNumber(totalPrice));
+        newKeys.push(item.totalAmount = DataTypeConverter.convertStringToNumber(totalPrice));
       }
       if (item.id === addedItem.id && key === "cost") {
         const totalPrice = item.totalQuantity * item.cost;
-        newKeys.push(item.totalAmount = convertDataType.convertStringToNumber(totalPrice));
+        newKeys.push(item.totalAmount = DataTypeConverter.convertStringToNumber(totalPrice));
       }
       return newKeys;
     });

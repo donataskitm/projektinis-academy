@@ -5,8 +5,8 @@ import PropTypes from 'prop-types';
 const Pagination = ({ postsPerPage, totalPosts, paginate }) => {
   const pageNumbers = [];
 
-  for (let i = 1; i <= Math.ceil(totalPosts / postsPerPage); i++) {
-    pageNumbers.push(i);
+  for (let postNo = 1; postNo <= Math.ceil(totalPosts / postsPerPage); postNo++) {
+    pageNumbers.push(postNo);
   }
 
   return (

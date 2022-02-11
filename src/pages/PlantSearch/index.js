@@ -4,7 +4,7 @@ import List from '../../components/Filter/List';
 import Filters from '../../components/FilterForm/Filters';
 import {CategoryContext} from '../../contexts/context';
 import useLocalStorage from '../../hooks/useLocalStorage';
-import  {serviceFilterForm}  from '../../services/serviceFilterForm';
+import  {serviceFilterForm}  from '../../services/filterFormHelper';
 
 function PlantSearch() {
 
@@ -14,13 +14,13 @@ function PlantSearch() {
 
     let isFoundItem = savedValue.filter((storedItem) => storedItem.category === event.target.id);
     if( isFoundItem == 0){
-      serviceFilterForm.addSelectedValue(event, savedValue, setValue);
+      serviceFilterForm.addSelectOptInStorage(event, savedValue, setValue);
     }
     else{
       if(event.target.value === "Pasirinkti..."){
-        serviceFilterForm.deleteSelectedValue(event, savedValue, setValue);
+        serviceFilterForm.deleteSelectOptInStorage(event, savedValue, setValue);
       } else{
-        serviceFilterForm.changeSelectedValue(event, savedValue, setValue);
+        serviceFilterForm.changeSelectOptInStorage(event, savedValue, setValue);
       }
     }
   };

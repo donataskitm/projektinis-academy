@@ -5,7 +5,7 @@ import useFetch from '../../hooks/Fetch';
 import { useParams, useNavigate } from "react-router-dom";
 import TaxonomyName from '../../components/Plants/taxonomyName';
 import headers from '../../data/fetchAttributes';
-import { determineDataType } from '../../services/determineDataType';
+import { DataTypeChecker } from '../../services/dataTypeChecker';
 
 function Plant() {
 
@@ -46,7 +46,7 @@ function Plant() {
                   </Row>
                   <Row>
                     {Object.entries(info).map(([key, value]) => (
-                      determineDataType.is_array(value) &&
+                      DataTypeChecker.is_array(value) &&
                         (
                           <Row key={key}>
                             <Col xs={12} className="text-center">

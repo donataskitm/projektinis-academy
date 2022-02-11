@@ -1,5 +1,5 @@
 import {SQUARE_CM_PER_SQUARE_M} from '../config/constants';
-import { convertDataType } from './convertDataType';
+import { DataTypeConverter } from './dataTypeConverter';
 
 
 const countTotal = (savedValue) => {
@@ -7,7 +7,7 @@ const countTotal = (savedValue) => {
   savedValue.forEach(function (item) {
     total = total + item.totalAmount;
   });
-  return convertDataType.convertStringToNumber(total);
+  return DataTypeConverter.convertStringToNumber(total);
 };
 
 const countTotalQuantity = (item, value) => {
@@ -15,7 +15,7 @@ const countTotalQuantity = (item, value) => {
   return Math.ceil(quantity);
 };
 
-export const EstimateCounting = {
+export const EstimateCounter = {
   countTotal,
   countTotalQuantity
 };

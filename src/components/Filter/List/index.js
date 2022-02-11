@@ -10,7 +10,7 @@ import PropTypes from 'prop-types';
 import { HeaderContext } from '../../../contexts/context';
 import headers from '../../../data/fetchAttributes';
 import { Modal } from 'react-bootstrap';
-import { makeApiEndpoint } from '../../../services/makeApiEndpoint';
+import { makeApiEndpoint } from '../../../services/apiEndpointMaker';
 
 function Plants(props) {
 

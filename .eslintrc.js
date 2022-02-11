@@ -23,6 +23,7 @@ module.exports = {
     "react/jsx-filename-extension": [1, { extensions: ['.js', '.jsx'] }],
     "no-plusplus": 0,
     "import/extensions": 0,
+    "id-length":[2, {max:25}],
     "linebreak-style": 0,
     "import/no-unresolved": 0,
     "react/react-in-jsx-scope": 0,
