@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
 import { Form, Row, Col } from 'react-bootstrap';
 import Button from '../Button';
-import db from '../../../src/services/firebase';
-import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 import * as constants from '../../config/constants';
 import Input from '../../components/Input';
 import Modal from '../../components/Modal';
+import { FirebaseHelper } from '../../services/firebaseHelper';
 
 function ContactForm() {
 
@@ -35,19 +34,7 @@ function ContactForm() {
       return;
     }
 
-    addDoc(collection(db, "message-project"), {
-      from_name: toSend.name,
-      to_name: toSend.email,
-      message: toSend.message,
-      created: serverTimestamp()
-    })
-      .then(() => {
-
-        setSmShow(true);
-      })
-      .catch((err) => {
-        alert(err.message);
-      });
+    FirebaseHelper.SaveMessageToFirebase(setSmShow, toSend);
 
     setToSend({
       name: '',
