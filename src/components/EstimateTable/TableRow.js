@@ -1,5 +1,4 @@
 import React from 'react';
-import Button from '../Button';
 import PropTypes from 'prop-types';
 import ZoomImage from './zoomImage';
 import ControlForm from './formControl';
@@ -23,10 +22,12 @@ function TableRow(props) {
       <td>{props.totalQuantity || ''}</td>
       <td>{props.totalAmount || ''}</td>
       <td>
-        <Button
-          name={"Trinti"}
-          color={"danger"}
-          onClick={props.deleteClick} />
+        <img
+          src="/pic/bin.png"
+          className='img-fluid hover-shadow bin-style'
+          alt='delete'
+          onClick={props.deleteClick}
+        />
       </td>
     </tr>
   );

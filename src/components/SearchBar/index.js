@@ -37,7 +37,6 @@ function SearchBar(props) {
               <Form.Control
                 
                 name="searchInput"
-                //className="w-25"
                 placeholder={props.placeholder}
                 onChange={handleInputChange}
                 value={inputs.searchInput}

@@ -6,8 +6,11 @@ import useLocalStorage from '../../hooks/useLocalStorage';
 import { EstimateCounter } from '../../services/estimateCounter';
 import {CategoryContext, HeaderContext} from '../../contexts/context';
 import { EstimateStorage } from '../../services/estimateStorage';
+import './style.css';
+import PropTypes from 'prop-types';
 
-function EstimateTable() {
+const EstimateTable = React.forwardRef((props, ref) => {
+  
   const DELETED_ITEM = 1;
   const [itemInStorage, 
     saveItemToStorage, 
@@ -39,15 +42,15 @@ function EstimateTable() {
 
   return (
 
-    <div>
+    <div ref={ref}>
       {
         itemInStorage.length > 0 ?
-          <Table striped bordered hover responsive="sm">
+          <><Table striped bordered hover responsive="sm">
             <thead>
               <tr>
                 <th>#</th>
                 <th></th>
-                <th>Pavadinimas</th>
+                <th>Vardas</th>
                 <th>Sodinimo atstumai, cm</th>
                 <th>Kaina, eur</th>
                 <th>Plotas, kv.m.</th>
@@ -59,41 +62,34 @@ function EstimateTable() {
             <tbody>
 
               {itemInStorage.map((item, index) => (
-                <CategoryContext.Provider  key={item.id}
+                <CategoryContext.Provider key={item.id}
                   value={{
                     getValue: getValue
                   }}>
                   <TableRow {...item}
                     key={item.id}
                     index={index}
-                    deleteClick={() => deleteClick(item)}
-                  />
+                    deleteClick={() => deleteClick(item)} />
                 </CategoryContext.Provider>
-              ))
-              }
+              ))}
               <tr>
-                <td colSpan="3"></td>
+                <td colSpan="5"></td>
                 <td>
-                </td>
-                <td><Button
-                  name={"Saugoti"}
-                  color={"success"} />
-                </td>
-                <td><Button
-                  name={"Trinti sąmatą"}
-                  color={"danger"}
-                  onClick= {clear}/>
-                <Modal show={show} onHide={handleClose} animation={false}>
-                  <Modal.Header closeButton>
-                    <Modal.Title>Ar tikrai trinti sąmatą?</Modal.Title>
-                  </Modal.Header>
-                  <Modal.Footer>
-                    <Button name="Trinti" color="danger" onClick={clearModalButton}>
-                    </Button>
-                    <Button name="Atšaukti" color="success" onClick={handleClose}>
-                    </Button>
-                  </Modal.Footer>
-                </Modal>
+                  <Button
+                    name={"Trinti sąmatą"}
+                    color={"danger"}
+                    onClick={clear} />
+                  <Modal show={show} onHide={handleClose} animation={false}>
+                    <Modal.Header closeButton>
+                      <Modal.Title>Ar tikrai trinti sąmatą?</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Footer>
+                      <Button name="Trinti" color="danger" onClick={clearModalButton}>
+                      </Button>
+                      <Button name="Atšaukti" color="success" onClick={handleClose}>
+                      </Button>
+                    </Modal.Footer>
+                  </Modal>
                 </td>
                 <td>Bendra suma:
                 </td>
@@ -102,11 +98,25 @@ function EstimateTable() {
               </tr>
             </tbody>
           </Table>
+          <Button
+            name={"Saugoti"}
+            color={"success"}
+            onClick={props.onClick} />
+          </>
           :
           <h5 colSpan="4">Sąmata tuščia. Įtraukite augalų</h5>
       }</div>
   );
-}
+});
 
+EstimateTable.propTypes = {
+  onClick: PropTypes.func
+};
+
+EstimateTable.defaultProps = {
+  onClick: ()=>{}
+};
+
+EstimateTable.displayName = 'EstimateTable';
 export default EstimateTable;
 
