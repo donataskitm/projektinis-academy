@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Form, Row, Col } from 'react-bootstrap';
 import Button from '../Button';
-//import * as constants from '../../config/constants';
 import Input from '../../components/Input';
 import Modal from '../../components/Modal';
 import {validate} from '../../services/validation';

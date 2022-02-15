@@ -31,19 +31,24 @@ function SearchBar(props) {
     <Row className="py-5 gx-0">
       <Form onSubmit={handleSubmit}>
         <Row className="g-2 pb-2 m-auto">
-          <Col  className="d-flex justify-content-center">
-            <Form.Group  controlId="formBasicSearch">
+          
+          <Form.Group  controlId="formBasicSearch">
+            <Col  xs lg="4" className="d-flex m-auto justify-content-center">
               <Form.Control
+                
                 name="searchInput"
-                className="inputWidth"
+                //className="w-25"
                 placeholder={props.placeholder}
                 onChange={handleInputChange}
                 value={inputs.searchInput}
-                onKeyPress={(event) => event.key === 'Enter' && handleSubmit} />
-            </Form.Group><Button
-              name={"Ieškoti"}
-              color={"success"}/>
-          </Col>
+                onKeyPress={(event) => event.key === 'Enter' && handleSubmit} /> 
+              <Button
+                name={"Ieškoti"}
+                color={"success"}/>
+            </Col>
+          </Form.Group>
+          
+         
         </Row>
       </Form>
       <Col className="text-center">
