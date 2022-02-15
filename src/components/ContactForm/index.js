@@ -1,94 +1,79 @@
 import React, { useState } from 'react';
 import { Form, Row, Col } from 'react-bootstrap';
 import Button from '../Button';
-import * as constants from '../../config/constants';
+//import * as constants from '../../config/constants';
 import Input from '../../components/Input';
 import Modal from '../../components/Modal';
+import {validate} from '../../services/validation';
+import ErrorMessage from '../ErrorMessage';
+import useForm from '../../hooks/useForm';
 import { FirebaseHelper } from '../../services/firebaseHelper';
 
 function ContactForm() {
-
-  const [toSend, setToSend] = useState({
-    name: '',
-    email: '',
-    message: '',
-  });
-
   const [smShow, setSmShow] = useState(false);
-
-  const onSubmit = (event) => {
-    event.preventDefault();
-
-    //TODO: to move validation to other file
-    if (toSend.name.length < constants.MIN_NAME_SYMBOLS) {
-      alert('Per trumpas vardas');
-      return;
-    }
-    if (toSend.email === "") {
-      alert('Neįvestas el. pašto adresas');
-      return;
-    }
-    if (toSend.message.length < constants.MIN_MESSAGE_SYMBOLS ||
-            toSend.message.length > constants.MAX_MESSAGE_SYMBOLS) {
-      alert('Žinutė turi  būti ne tumpesnė nei 10 ir ne ilgesnei nei 400 simbolių');
-      return;
-    }
-
-    FirebaseHelper.SaveMessageToFirebase(setSmShow, toSend);
-
-    setToSend({
-      name: '',
-      email: '',
-      message: '',
-    });
+  
+  const initialState = {
+    name:'', email:'', message:''
   };
 
-  const handleChange = (event) => {
-    const { name, value } = event.target;
-    setToSend({ ...toSend, [name]: value });
+  const saveMessage = (errors) => {
+    if (Object.keys(errors).length === 0){
+      console.log(Object.keys(errors).length);
+      FirebaseHelper.SaveMessageToFirebase(setSmShow, inputs);
+    } 
   };
 
+  const {inputs, 
+    handleInputChange, 
+    handleSubmit, 
+    errors} = useForm(initialState, validate.validateContactForm, saveMessage);
+    
   const closeModal = () => {
     setSmShow(false);
   };
 
   return (
-    <Row className="text-center">
+    <Row className="text-center w-100">
       <h4 className="p-5"> PARAŠYK ŽINUTĘ</h4>
       <p className="pb-3"> Turi klausimų ar pastebėjimų? Parašyk!</p>
-      <Form className="m-auto w-50" onSubmit={onSubmit}>
+      <Form className="m-auto w-50" onSubmit={handleSubmit}>
         <Row className="g-2">
-          <Col md>
+          <Col sm={6}>
             <Input
-              type="name"
+              type="text"
               placeholder="vardas"
               name="name"
-              value={toSend.name}
+              value={inputs.name}
+              color={errors.name && 'border-danger' }
               label="Vardas"
-              onChange={handleChange} required />
+              onChange={handleInputChange}  />
+            {<ErrorMessage message = {errors.name}/>}
           </Col>
-          <Col md>
+          <Col sm={6}>
             <Input
-              type="email"
+              type="text"
               placeholder="name@example.com"
               name="email"
-              value={toSend.email}
+              color={errors.email && 'border-danger' }
+              value={inputs.email}
               label="El. pašto adresas"
-              onChange={handleChange} required />
+              onChange={handleInputChange} required />
+            {<ErrorMessage message = {errors.email}/>}
           </Col>
         </Row>
-        <Row>
+        <Row sm={12}>
           <Form.Group
             className="mb-3 pt-3"
             controlId="exampleForm.ControlTextarea1">
-            <Form.Label>Žinutė</Form.Label>
             <Form.Control
               as="textarea"
               rows={3}
               placeholder="Jūsų žinutė"
               name="message"
-              value={toSend.message}
-              onChange={handleChange} required />
+              value={inputs.message}
+              className = {errors.message && 'border-danger' }
+              onChange={handleInputChange}  />
+            {<ErrorMessage message = {errors.message}/>}
           </Form.Group>
         </Row>
         <Row className="py-5">

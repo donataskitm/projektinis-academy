@@ -4,40 +4,50 @@ import Button from '../Button';
 import { useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import useLocalStorage from '../../hooks/useLocalStorage';
+import { validate } from '../../services/validation';
+import ErrorMessage from '../ErrorMessage';
+import useForm from '../../hooks/useForm';
 
 function SearchBar(props) {
 
   const navigate = useNavigate();
-  let textInput = React.createRef();
+  const initialState = {searchInput:''};
   
+  const redirectSearch = (errors) => {
+    if (Object.keys(errors).length === 0){
+      const apiLink = process.env.REACT_APP_API_SEARCH + inputs.searchInput;
+      saveItemToStorage([]);
+      navigate('/atranka', { state: { apiLink: apiLink } });
+    } 
+  };
+
+  const {inputs, 
+    handleInputChange, 
+    handleSubmit, 
+    errors} = useForm(initialState, validate.validateSearchBar, redirectSearch);
   const [, saveItemToStorage] = useLocalStorage("input", []);
   
-  const redirectSearch = () => {
-    const form = textInput.current;
-    const inputValue = form['searchInput'].value;
-    const apiLink = process.env.REACT_APP_API_SEARCH + inputValue;
-    saveItemToStorage([]);
-    navigate('/atranka', { state: { apiLink: apiLink } });
-  };
-  
   return (
-    <Row className=" bg-opacity-50 py-4 align-items-center justify-content-center align-items-center gx-0">
-      <Col sm={3} className="my-1">
-        <Form ref={textInput}>
-          <Form.Group className="mb-3" controlId="formBasicEmail">
-            <Form.Control
-              className="mt-3"
-              name={'searchInput'}
-              placeholder={props.placeholder}
-              onKeyPress={(event) => event.key === 'Enter' && redirectSearch()} />
-          </Form.Group>
-        </Form>
-      </Col>
-      <Col xs="auto" className="my-1">
-        <Button
-          name={"Ieškoti"}
-          color={"success"}
-          onClick={redirectSearch} />
+    <Row className="py-5 gx-0">
+      <Form onSubmit={handleSubmit}>
+        <Row className="g-2 pb-2 m-auto">
+          <Col  className="d-flex justify-content-center">
+            <Form.Group  controlId="formBasicSearch">
+              <Form.Control
+                name="searchInput"
+                className="inputWidth"
+                placeholder={props.placeholder}
+                onChange={handleInputChange}
+                value={inputs.searchInput}
+                onKeyPress={(event) => event.key === 'Enter' && handleSubmit} />
+            </Form.Group><Button
+              name={"Ieškoti"}
+              color={"success"}/>
+          </Col>
+        </Row>
+      </Form>
+      <Col className="text-center">
+        {<ErrorMessage message={errors.searchInput} color="text-white"/>}
       </Col>
     </Row>
   );

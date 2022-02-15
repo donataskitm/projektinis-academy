@@ -9,12 +9,13 @@ function Input(props) {
     <Col md>
       <FloatingLabel controlId={props.label} label={props.label}>
         <Form.Control
+          className = {props.color}
           type={props.type}
           placeholder={props.placeholder}
           name={props.name}
           value={props.value}
           autoComplete="on"
-          onChange={props.onChange} required />
+          onChange={props.onChange} />
       </FloatingLabel>
     </Col>
   );
@@ -22,6 +23,7 @@ function Input(props) {
 
 Input.propTypes = {
   name: PropTypes.string.isRequired,
+  color: PropTypes.string,
   value: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
@@ -30,7 +32,8 @@ Input.propTypes = {
 };
 
 Input.defaultProps = {
-  onChange: ()=>{}
+  onChange: ()=>{},
+  color: "",
 };
   
 export default Input;

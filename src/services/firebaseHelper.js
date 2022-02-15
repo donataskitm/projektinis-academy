@@ -1,12 +1,12 @@
 import db from "./firebase";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 
-const  SaveMessageToFirebase = (setSmShow, toSend)=>{
+const  SaveMessageToFirebase = (setSmShow, inputs)=>{
     
   addDoc(collection(db, "message-project"), {
-    from_name: toSend.name,
-    to_name: toSend.email,
-    message: toSend.message,
+    from_name: inputs.name,
+    to_name: inputs.email,
+    message: inputs.message,
     created: serverTimestamp()
   })
     .then(() => {

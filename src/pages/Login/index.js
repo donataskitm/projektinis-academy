@@ -1,55 +1,58 @@
-import React, {useState} from 'react';
+import React from 'react';
 import { Form, Row, Col} from 'react-bootstrap';
 import Button from '../../components/Button';
 import Input from '../../components/Input';
 import { HeaderContext } from '../../contexts/context';
 import { useNavigate } from 'react-router-dom';
+import {validate} from '../../services/validation';
+import useForm from '../../hooks/useForm';
+import ErrorMessage from '../../components/ErrorMessage';
 
 function Login() {
 
-  const [login, setLogin] = useState({
-    name: '',
-    password: '',
-  });
+  const initialState = {name:'', password:''};
+
+  const loginUser = (errors) => {
+    if (Object.keys(errors).length === 0){
+      console.log(Object.keys(errors).length);
+      fetchToken(inputs, value, navigate);
+    } 
+  };
+
+  const {inputs, 
+    handleInputChange, 
+    handleSubmit, 
+    errors} = useForm(initialState, validate.validateLoginForm, loginUser);
 
   const value = React.useContext(HeaderContext);  
   const navigate = useNavigate();
 
-  const handleChange = (event) => {
-    const { name, value } = event.target;
-    setLogin((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-  };
-
-  const onSubmit = (event) => {
-    event.preventDefault();
-    fetchToken(setLogin, login, value, navigate);
-  };
-
   return (
-    <Row className="text-center">
+    <Row className="text-center w-100">
       <h4 className="p-5"> PRISIJUNGTI</h4>
-      <Form className="m-auto w-100" onSubmit={onSubmit}>
-        <Row className="g-2 pb-2">
-          <Col md>
+      <Form className="m-auto w-50  " onSubmit={handleSubmit}>
+        <Row className="g-2 pb-2 m-auto">
+          <Col sm={6} >
             <Input
               type="name"
               placeholder="Vardas"
               name="name"
-              value={login.name}
+              value={inputs.name}
+              color={errors.name && 'border-danger' }
               label="Vartotojo vardas"
-              onChange={handleChange} required />
+              onChange={handleInputChange} />
+            {<ErrorMessage message = {errors.name}/>}
           </Col>
-          <Col md>
+          <Col sm={6} >
             <Input
               type="password"
               placeholder="Slaptažodis"
               name="password"
-              value={login.password}
+              value={inputs.password}
               label="Slaptažodis"
-              onChange={handleChange} required />
+              color={errors.password && 'border-danger' }
+              onChange={handleInputChange} />
+            {<ErrorMessage message = {errors.password}/>}
           </Col>
         </Row>
         
@@ -64,7 +67,7 @@ function Login() {
 
 export default Login;
 //TODO: to use dry code principle
-function fetchToken(setLogin, login, value, navigate) {
+function fetchToken(inputs, value, navigate) {
 
   let config = {
     method: "POST",
@@ -72,8 +75,8 @@ function fetchToken(setLogin, login, value, navigate) {
       ["Content-Type", "application/json"],
       ["Content-Type", "text/plain"]
     ],
-    body: JSON.stringify( {username: login.name,
-      password: login.password})
+    body: JSON.stringify( {username: inputs.name,
+      password: inputs.password})
   };
 
   
@@ -85,7 +88,6 @@ function fetchToken(setLogin, login, value, navigate) {
      
       if(response.status === 200){
         localStorage.setItem("token", data.token);
-        setLogin ({name: '', password: ''});
         value.returnLogin(true);
         navigate("/profilis");
       }
