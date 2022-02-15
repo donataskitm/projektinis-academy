@@ -33,7 +33,7 @@ function SearchBar(props) {
         <Row className="g-2 pb-2 m-auto">
           
           <Form.Group  controlId="formBasicSearch">
-            <Col  xs lg="4" className="d-flex m-auto justify-content-center">
+            <Col  xs="10" md="6" lg="4" className="d-flex m-auto justify-content-center">
               <Form.Control
                 
                 name="searchInput"
