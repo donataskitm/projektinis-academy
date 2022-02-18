@@ -30,7 +30,7 @@ const Item = (props) => {
       src="/pic/bin.png"
       className='img-fluid hover-shadow bin-style'
       alt='delete'
-      onClick={() =>{value.deleteSelection(isFoundItem[0]);}}
+      onClick={() =>{value.deleteSelection(isFoundItem[0]), value.recalculatePagination();}}
     /> : "";
 
   return (
@@ -39,7 +39,7 @@ const Item = (props) => {
         <div className="form-floating">
           <select 
             value={selectValue} 
-            onChange={event =>{value.getSelectedValue(event);}} 
+            onChange={event =>{value.getSelectedValue(event), value.recalculatePagination();}} 
             className={`form-select h6 ${selectStyle}`}
             id={props.name} >
             <option defaultValue>Pasirinkti...</option>

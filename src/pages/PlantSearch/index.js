@@ -1,7 +1,7 @@
 import React from 'react';
 import { Row, Col } from 'react-bootstrap';
-import List from '../../components/Filter/List';
-import Filters from '../../components/FilterForm/Filters';
+import PlantsList from '../../components/PlantsList';
+import FilterForm from '../../components/FilterForm';
 import {CategoryContext} from '../../contexts/context';
 import useLocalStorage from '../../hooks/useLocalStorage';
 import {FilterFormHelper} from '../../services/filterFormHelper';
@@ -11,7 +11,7 @@ function PlantSearch() {
   const [itemInStorage, saveItemToStorage]=useLocalStorage("input", []);
 
   const getSelectedValue = (event)=>{
-
+  
     let isFoundItem = itemInStorage.filter((storedItem) => storedItem.category === event.target.id);
     if( isFoundItem == 0){
       FilterFormHelper.addSelectOptInStorage(event, itemInStorage, saveItemToStorage);
@@ -25,28 +25,36 @@ function PlantSearch() {
     }
   };
   const deleteSelection = (category) => {
-    console.log(category);
     FilterFormHelper.deleteSelectOptInStorage(category, itemInStorage, saveItemToStorage);
+  };
+
+  const recalculatePagination = () => {
+    childRef.setActiveFirstPagination();
+  };
+
+  const childRef = {
+    recalculatePagination: recalculatePagination
   };
 
   return (
     <Row>
       <Col sm={12} className="text-center text-secondary">
-        <h4 className="p-5" >Detali dekoratyvinių žolinių augalų atranka </h4>
+        <h4 id="scroll-point" className="p-5" >Detali dekoratyvinių žolinių augalų atranka </h4>
       </Col>
       <Col>
         <Row className="row gx-0 vw-99">
           <Col md={8} className="min-vw-75">
-            <List selection={itemInStorage}/>
+            <PlantsList selection={itemInStorage} childRef={childRef}/>
           </Col>
           <Col md={4} className="min-vw-25">
             <CategoryContext.Provider
               value={{
                 getSelectedValue: getSelectedValue,
                 itemInStorage: itemInStorage,
-                deleteSelection: deleteSelection
+                deleteSelection: deleteSelection,
+                recalculatePagination: recalculatePagination
               }}>
-              <Filters/>
+              <FilterForm/>
             </CategoryContext.Provider>
           </Col>
         </Row>

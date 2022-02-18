@@ -12,10 +12,12 @@ import PropTypes from 'prop-types';
 const EstimateTable = React.forwardRef((props, ref) => {
   
   const DELETED_ITEM = 1;
-  const [itemInStorage, 
+  const [
+    itemInStorage, 
     saveItemToStorage, 
     clearItemFromStorage, 
-    clearAllItemsFromStorage] = useLocalStorage("samata", []);
+    clearAllItemsFromStorage
+  ] = useLocalStorage("samata", []);
   
   const value = React.useContext(HeaderContext);
 

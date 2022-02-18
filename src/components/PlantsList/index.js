@@ -1,19 +1,22 @@
-import React, { useState } from 'react';
-import Item from '../Item';
+import React, {useState } from 'react';
+import Item from './Item';
 import { useLocation, useNavigate} from 'react-router-dom';
 import { Spinner } from 'react-bootstrap';
-import useFetch from '../../../hooks/Fetch';
-import Pagination from '../../Layout/Pagination';
-import * as constants from '../../../config/constants';
-import useLocalStorage from '../../../hooks/useLocalStorage';
+import useFetch from '../../hooks/Fetch';
+import Pagination from '../Layout/Pagination';
+import useLocalStorage from '../../hooks/useLocalStorage';
 import PropTypes from 'prop-types';
-import { HeaderContext } from '../../../contexts/context';
-import headers from '../../../data/fetchAttributes';
+import { HeaderContext } from '../../contexts/context';
+import headers from '../../data/fetchAttributes';
 import { Modal } from 'react-bootstrap';
-import { makeApiEndpoint } from '../../../services/apiEndpointMaker';
-import { EstimateStorage } from '../../../services/estimateStorage';
+import { makeApiEndpoint } from '../../services/apiEndpointMaker';
+import { EstimateStorage } from '../../services/estimateStorage';
 
-function Plants(props) {
+const ITEMS_PER_PAGE = 12;
+
+function PlantsList(props) {
+
+  let PageSize = ITEMS_PER_PAGE;
 
   const [itemInStorage, saveItemToStorage] = useLocalStorage("samata", []);
 
@@ -22,8 +25,7 @@ function Plants(props) {
     showMessage: false
   });
 
-  const [currentPage, setCurrentPage] = useState(constants.CURRENT_PAGE);
-  const [postsPerPage] = useState(constants.POST_PER_PAGE);
+  const [currentPage, setCurrentPage] = useState(1);
 
   let { state } = useLocation();
   const navigate = useNavigate();
@@ -37,12 +39,11 @@ function Plants(props) {
   }
     
   let { isLoading, data } = useFetch(apiLink, headers);
-
-  const indexOfLastPost = currentPage * postsPerPage;
-  const indexofFirstPost = indexOfLastPost - postsPerPage;
-  const currentPosts = data.slice(indexofFirstPost, indexOfLastPost);
-  const paginate = (pageNumber) => setCurrentPage(pageNumber);
-
+  
+  const firstPageIndex = (currentPage - 1) * PageSize;
+  const lastPageIndex = firstPageIndex + PageSize;
+  const currentData = data.slice(firstPageIndex, lastPageIndex);
+  
   const handleClick = (item) => {
     let receivedMessage = EstimateStorage.addValueToItem(item, itemInStorage, saveItemToStorage);
     setState({text: receivedMessage, showMessage: true});
@@ -56,6 +57,11 @@ function Plants(props) {
     navigate(`/augalas/${item}`);
   }
 
+  function setActiveFirstPagination () {
+    setCurrentPage(1);
+  }
+
+  props.childRef.setActiveFirstPagination = setActiveFirstPagination;
 
   return (
     <div className="text-center py-5">
@@ -64,8 +70,8 @@ function Plants(props) {
         <Spinner animation="border" /></div>) : (
         <div >
           <div className="d-flex flex-wrap flex-row justify-content-center text-center">
-            {data.length ?
-              currentPosts.map((info, index) => (<Item key={index} {...info} 
+            {data ?
+              currentData.map((info, index) => (<Item key={index} {...info} 
                 handler={() => handleClick(info)} 
                 handleSubmit= {() => redirectonClick(info.id)}/>
               )) 
@@ -75,9 +81,11 @@ function Plants(props) {
           </div>
           <div className="m-4">
             <Pagination
-              postsPerPage={postsPerPage}
-              totalPosts={data.length}
-              paginate={paginate} />
+              currentPage={currentPage}
+              totalCount={data.length}
+              pageSize={PageSize}
+              onPageChange={page => setCurrentPage(page)}
+            />
           </div>
           <Modal
             size="sm"
@@ -96,12 +104,16 @@ function Plants(props) {
   );
 }
 
-Plants.propTypes = {
+PlantsList.propTypes = {
   selection: PropTypes.array,
+  childRef: PropTypes.object,
+  setActiveFirstPagination: PropTypes.func
 };
 
-Plants.defaultProps = {
+PlantsList.defaultProps = {
   selection: {},
+  childRef: {},
+  setActiveFirstPagination: ()=>{}
 };
 
-export default Plants;
+export default PlantsList;
