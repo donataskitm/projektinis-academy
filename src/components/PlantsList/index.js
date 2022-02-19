@@ -70,12 +70,11 @@ function PlantsList(props) {
         <Spinner animation="border" /></div>) : (
         <div >
           <div className="d-flex flex-wrap flex-row justify-content-center text-center">
-            {data ?
+            {data.length ?
               currentData.map((info, index) => (<Item key={index} {...info} 
                 handler={() => handleClick(info)} 
                 handleSubmit= {() => redirectonClick(info.id)}/>
-              )) 
-              :
+              )) :
               <h5> Duomenų nėra. </h5>
             }
           </div>

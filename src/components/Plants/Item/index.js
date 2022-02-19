@@ -4,6 +4,8 @@ import { useNavigate } from 'react-router-dom';
 import {CategoryContext} from '../../../contexts/context';
 import "./style.css";
 import useLocalStorage from '../../../hooks/useLocalStorage';
+import {FilterFormHelper} from '../../../services/filterFormHelper';
+
 
 const Item = (info) => {
 
@@ -11,16 +13,14 @@ const Item = (info) => {
   const [, saveItemToStorage] = useLocalStorage("input", []);
   const navigate = useNavigate();
 
-  const apiLink = process.env.REACT_APP_API_POST_CATAX + info.id + '?cat=' + info.taxonomy;
-
   const addDefaultSrc = (event)=>{
     event.target.src = '/pic/taxonomies.jpg';
   };
 
   const redirectToCategoryOrPage = () =>{
     if(info.id){
-      saveItemToStorage([]);
-      navigate('/atranka', {state: {apiLink: apiLink}});
+      FilterFormHelper.addSelectionInStorage(info.id, info.taxonomy, saveItemToStorage);
+      navigate('/atranka');
     } else{
       value.returnTaxonomy((info.name));
     }
