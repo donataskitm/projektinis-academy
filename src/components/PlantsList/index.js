@@ -109,7 +109,7 @@ function PlantsList(props) {
             <Pagination
               currentPage={currentPage}
               totalCount={data.length}
-              pageSize={currentListBox}
+              pageSize={DataTypeConverter.convertStringToNumber(currentListBox, FIXED_NUMBER_ONE)}
               onPageChange={page => setCurrentPage(page)}
             />
           </div>

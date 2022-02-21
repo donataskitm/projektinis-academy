@@ -37,13 +37,13 @@ function PlantSearch() {
   };
 
   return (
-    <Row>
+    <Row className="gx-0 w-100">
       <Col>
-        <Row id="scroll-point" className="row gx-0 vw-99">
-          <Col md={8} className="min-vw-75">
+        <Row id="scroll-point">
+          <Col md={8} className="min-vw-70 gx-0">
             <PlantsList selection={itemInStorage} childRef={childRef}/>
           </Col>
-          <Col md={4} className="min-vw-25">
+          <Col md={4} className="min-vw-30 gx-0">
             <CategoryContext.Provider
               value={{
                 getSelectedValue: getSelectedValue,

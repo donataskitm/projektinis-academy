@@ -4,10 +4,7 @@ const  makeList = (start, end)=>{
   for (listBoxItem = start; listBoxItem < end; listBoxItem=listBoxItem+listBoxItem){
     listBoxItemsArray.push(listBoxItem);
   }
-  
-  // listBoxItemsArray.map((item)=>{
-  //   console.log(item);
-  // });
+
   return listBoxItemsArray;
 };
   
