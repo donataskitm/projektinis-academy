@@ -38,11 +38,8 @@ function PlantSearch() {
 
   return (
     <Row>
-      <Col sm={12} className="text-center text-secondary">
-        <h4 id="scroll-point" className="p-5" >Detali dekoratyvinių žolinių augalų atranka </h4>
-      </Col>
       <Col>
-        <Row className="row gx-0 vw-99">
+        <Row id="scroll-point" className="row gx-0 vw-99">
           <Col md={8} className="min-vw-75">
             <PlantsList selection={itemInStorage} childRef={childRef}/>
           </Col>

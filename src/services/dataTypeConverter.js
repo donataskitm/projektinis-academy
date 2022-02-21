@@ -1,7 +1,7 @@
 const STRING_TO_NUMBER = 1;
 
-const convertStringToNumber = (number) => {
-  const convertedNumber = parseFloat(number).toFixed(2) * STRING_TO_NUMBER;
+const convertStringToNumber = (number, fixedNumber) => {
+  const convertedNumber = parseFloat(number).toFixed(fixedNumber) * STRING_TO_NUMBER;
   return (convertedNumber);
 };
 

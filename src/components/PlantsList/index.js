@@ -11,12 +11,13 @@ import headers from '../../data/fetchAttributes';
 import { Modal } from 'react-bootstrap';
 import { makeApiEndpoint } from '../../services/apiEndpointMaker';
 import { EstimateStorage } from '../../services/estimateStorage';
+import  makeList from '../../services/makeList';
+import { DataTypeConverter } from '../../services/dataTypeConverter';
+import { FIXED_NUMBER_ONE } from '../../config/constants';
 
 const ITEMS_PER_PAGE = 12;
 
 function PlantsList(props) {
-
-  let PageSize = ITEMS_PER_PAGE;
 
   const [itemInStorage, saveItemToStorage] = useLocalStorage("samata", []);
 
@@ -26,6 +27,7 @@ function PlantsList(props) {
   });
 
   const [currentPage, setCurrentPage] = useState(1);
+  const [currentListBox, setListBox] = useState(ITEMS_PER_PAGE);
 
   let { state } = useLocation();
   const navigate = useNavigate();
@@ -40,10 +42,14 @@ function PlantsList(props) {
     
   let { isLoading, data } = useFetch(apiLink, headers);
   
-  const firstPageIndex = (currentPage - 1) * PageSize;
-  const lastPageIndex = firstPageIndex + PageSize;
-  const currentData = data.slice(firstPageIndex, lastPageIndex);
-  
+  const firstPageIndex = (currentPage - 1) * currentListBox;
+  const lastPageIndex =  DataTypeConverter.convertStringToNumber(firstPageIndex, FIXED_NUMBER_ONE) + 
+    DataTypeConverter.convertStringToNumber(currentListBox, FIXED_NUMBER_ONE);
+  const currentData = data.slice(firstPageIndex,lastPageIndex);
+  console.log(firstPageIndex, "pirm");
+  console.log(lastPageIndex, "antr");
+  console.log(currentData);
+
   const handleClick = (item) => {
     let receivedMessage = EstimateStorage.addValueToItem(item, itemInStorage, saveItemToStorage);
     setState({text: receivedMessage, showMessage: true});
@@ -61,14 +67,35 @@ function PlantsList(props) {
     setCurrentPage(1);
   }
 
+  function fillListBox(event) {
+    setListBox(event.target.value);
+    setCurrentPage(1);
+  }
+
   props.childRef.setActiveFirstPagination = setActiveFirstPagination;
 
   return (
     <div className="text-center py-5">
-      <h4 className="text-center pb-3"> Augalų sąrašas</h4>
+      <h4 className="text-center pb-3">Dekoratyviniai žoliniai augalai ({data.length})</h4>
       {isLoading ? (<div className="text-center mx-auto"><h4>Kraunama...</h4>
         <Spinner animation="border" /></div>) : (
         <div >
+          {data.length > ITEMS_PER_PAGE &&
+          <div className="d-flex align-items-center justify-content-end px-3" >
+            <p className="my-auto"> Rodyti: </p>
+            <select className="border"
+              value={currentListBox} 
+              onChange={fillListBox} 
+              id={currentListBox}>
+              {makeList(ITEMS_PER_PAGE, data.length).map((info, index) => (
+                <option key={index} 
+                  value={info} >
+                  {info}
+                </option>
+              ))}
+            </select>
+          </div>
+          }
           <div className="d-flex flex-wrap flex-row justify-content-center text-center">
             {data.length ?
               currentData.map((info, index) => (<Item key={index} {...info} 
@@ -82,7 +109,7 @@ function PlantsList(props) {
             <Pagination
               currentPage={currentPage}
               totalCount={data.length}
-              pageSize={PageSize}
+              pageSize={currentListBox}
               onPageChange={page => setCurrentPage(page)}
             />
           </div>

@@ -1,5 +1,6 @@
 import { EstimateCounter } from "./estimateCounter";
 import { DataTypeConverter } from "./dataTypeConverter";
+import {FIXED_NUMBER_TWO} from '../config/constants';
 
 const addValueToItem = (addedItem, itemInStorage, saveItemToStorage) => {
 
@@ -31,11 +32,11 @@ const addKeyValueToItem = (event, addedItem, itemInStorage, saveItemToStorage) =
       const totalQuantity = EstimateCounter.countTotalQuantity(item, value);
       const totalPrice = totalQuantity *  item.cost;
       newKeys.push(item.totalQuantity = totalQuantity);
-      newKeys.push(item.totalAmount = DataTypeConverter.convertStringToNumber(totalPrice));
+      newKeys.push(item.totalAmount = DataTypeConverter.convertStringToNumber(totalPrice, FIXED_NUMBER_TWO));
     }
     if (item.id === addedItem.id && key === "cost") {
       const totalPrice = item.totalQuantity * item.cost;
-      newKeys.push(item.totalAmount = DataTypeConverter.convertStringToNumber(totalPrice));
+      newKeys.push(item.totalAmount = DataTypeConverter.convertStringToNumber(totalPrice, FIXED_NUMBER_TWO));
     }
     return newKeys;
   });

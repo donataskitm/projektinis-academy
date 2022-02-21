@@ -1,4 +1,4 @@
-import {SQUARE_CM_PER_SQUARE_M} from '../config/constants';
+import {SQUARE_CM_PER_SQUARE_M, FIXED_NUMBER_TWO} from '../config/constants';
 import { DataTypeConverter } from './dataTypeConverter';
 
 
@@ -7,7 +7,7 @@ const countTotal = (itemInStorage) => {
   itemInStorage.forEach(function (item) {
     total = total + item.totalAmount;
   });
-  return DataTypeConverter.convertStringToNumber(total);
+  return DataTypeConverter.convertStringToNumber(total, FIXED_NUMBER_TWO);
 };
 
 const countTotalQuantity = (item, value) => {
