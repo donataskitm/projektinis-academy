@@ -3,9 +3,6 @@
     cursor: pointer;
 }
 .img-style{
-   
     object-fit: cover;
-    
     height: 18rem!important;
-
 }

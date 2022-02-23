@@ -1,10 +1,9 @@
-
-.title-padding {
-  padding: 15vh;
+.home{
+  height: 96vh;
 }
 
-.home{
+.home-background {
   background-image: url("../../../public/pic/home.jpg");
-  background-repeat: repeat-x;
-  background-position: center top -3em;
+  background-repeat: no-repeat;
+  background-size: cover;
 }

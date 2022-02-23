@@ -34,7 +34,7 @@ const Item = (props) => {
     /> : "";
 
   return (
-    <Row >
+    <Row className="mx-3 gx-0">
       <Col md={selectWidth}>
         <div className="form-floating">
           <select 
@@ -54,7 +54,7 @@ const Item = (props) => {
           <label className="h6" htmlFor="select">{props.label}</label>
         </div>
       </Col>
-      <Col md={binWidth} className="pb-4 g-0 m-auto">
+      <Col md={binWidth} className="pb-3 m-auto">
         {selectImage}
       </Col>
     </Row>

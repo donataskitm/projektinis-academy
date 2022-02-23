@@ -33,9 +33,8 @@ function SearchBar(props) {
         <Row className="g-2 pb-2 m-auto">
           
           <Form.Group  controlId="formBasicSearch">
-            <Col  xs="10" md="6" lg="4" className="d-flex m-auto justify-content-center">
+            <Col  xs="10" md="6" lg="4" className="d-flex m-auto pt-5 justify-content-center">
               <Form.Control
-                
                 name="searchInput"
                 placeholder={props.placeholder}
                 onChange={handleInputChange}
@@ -45,14 +44,15 @@ function SearchBar(props) {
                 name={"Ieškoti"}
                 color={"success"}/>
             </Col>
+            <Col className="text-center">
+              {<ErrorMessage message={errors.searchInput} color="text-white"/>}
+            </Col>
           </Form.Group>
           
-         
         </Row>
+       
       </Form>
-      <Col className="text-center">
-        {<ErrorMessage message={errors.searchInput} color="text-white"/>}
-      </Col>
+
     </Row>
   );
 }

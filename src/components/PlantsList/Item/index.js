@@ -10,33 +10,34 @@ const Item = (info) => {
       key={info.id}
       className="text-center m-1 card-width">
       <Card.Body>
-        <Card.Text className="text-center">
+        <Card.Text>
           {info.lt_name}
         </Card.Text>
-        <Card.Text className="text-center">
-          {info.lot_name}  {info.author_name}
+        <Card.Text>
+          <em className="font-italic">{info.lot_name} </em> {info.author_name}
         </Card.Text>
       </Card.Body>
-      <Card.Img
-        className="card-img"
-        variant="bottom"
-        src={info.img[0]}
-        alt={info.lt_name} />
+      <div className="card-img-container" onClick={info.handler}>
+        <div className="top-right"> 
+          <img
+            src="/pic/estimate.png"
+            className='img-fluid hover-shadow'
+            alt='samata'
+            width="16px"/>
+        </div>
+        <Card.Img
+          className="card-img"
+          variant="bottom"
+          src={info.img[0]}
+          alt={info.lt_name} />
+      </div>
+
       <Row>
         <Col className="p-2">
           <Button 
             name={"Peržiūrėti"} 
             color={"success"} 
             onClick={info.handleSubmit} />
-        </Col>
-      </Row>
-      <Row>
-        <Col className="p-2">
-          <Button
-            name={"Pridėti"}
-            color={"warning"}
-            onClick={info.handler}/>
-                   
         </Col>
       </Row>
     </Card>

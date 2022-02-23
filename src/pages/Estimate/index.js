@@ -13,7 +13,7 @@ function Estimate() {
 
   return (
 
-    <Row>
+    <Row className="gx-0">
       <Col sm={12} className="p-5 text-center text-secondary">
         <h4>Dekoratyviųjų žolinių augalų sąmata želdinimo projektui </h4>
       </Col>

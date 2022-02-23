@@ -7,16 +7,27 @@ import "./style.css";
 function Home() {
 
   return (
-
-    <Row className="home">
-      <Col sm={12} className="title-padding text-center text-white ">
-        <h3>Parink dekoratyvinius žolinius augalus savo svajonių želdynui</h3>
+    <Row className="gx-0">
+      <Col sm={12} className="home home-background">
+        <Row className="gx-0">
+          <Col >
+            <Row className="gx-0">
+              <Col sm={12} className="text-center text-white ">
+                <h3>Parink dekoratyvinius žolinius augalus savo svajonių želdynui</h3>
+              </Col>
+              <Col sm={12}>
+                <SearchBar placeholder="Įvesk augalo vardą" />
+              </Col>
+            </Row>
+          </Col>
+        </Row>
       </Col>
       <Col sm={12}>
-        <SearchBar placeholder="Įvesk augalo vardą" />
-      </Col>
-      <Col sm={12} className="title-padding pb-0">
-        <Plants />
+        <Row className="gx-0">
+          <Col sm={12}>
+            <Plants />
+          </Col>
+        </Row>
       </Col>
     </Row>
   );

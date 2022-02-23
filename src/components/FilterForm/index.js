@@ -11,10 +11,10 @@ const FilterForm = () => {
     process.env.REACT_APP_API_TAXONOMIES_URL, headers);
   
   return (
-    <div className="text-center py-5 ">
+    <div className="text-center py-5 gx-0 ">
       <h4 className="text-center pb-3"> Filtruok</h4>
-      <Form>
-        {isLoading ? (<div className="text-center mx-auto"><h4>Kraunama...</h4><Spinner animation="border" /></div>) : (
+      <Form >
+        {isLoading ? (<div className="text-center  mx-auto"><h4>Kraunama...</h4><Spinner animation="border" /></div>) : (
           <div>
             {data.map((info, index) => (<Item key={index} {...info} />
             ))

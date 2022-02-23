@@ -16,7 +16,7 @@ function Category(props) {
   };
 
   return (
-    <div className="text-center py-5">
+    <div className="text-center py-1">
       <h4 className="text-center pb-3"> Pasirink kriterijų</h4>
       {isLoading ? (<div className="text-center mx-auto"><h4>Kraunama...</h4>
         <Spinner animation="border" /></div>) : (

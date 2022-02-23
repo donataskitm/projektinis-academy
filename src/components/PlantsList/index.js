@@ -46,9 +46,6 @@ function PlantsList(props) {
   const lastPageIndex =  DataTypeConverter.convertStringToNumber(firstPageIndex, FIXED_NUMBER_ONE) + 
     DataTypeConverter.convertStringToNumber(currentListBox, FIXED_NUMBER_ONE);
   const currentData = data.slice(firstPageIndex,lastPageIndex);
-  console.log(firstPageIndex, "pirm");
-  console.log(lastPageIndex, "antr");
-  console.log(currentData);
 
   const handleClick = (item) => {
     let receivedMessage = EstimateStorage.addValueToItem(item, itemInStorage, saveItemToStorage);
@@ -76,7 +73,9 @@ function PlantsList(props) {
 
   return (
     <div className="text-center py-5">
-      <h4 className="text-center pb-3">Dekoratyviniai žoliniai augalai ({data.length})</h4>
+      <h4 className="text-center pb-3">Dekoratyviniai žoliniai augalai 
+        {!isLoading && ` (${data.length})`}
+      </h4>
       {isLoading ? (<div className="text-center mx-auto"><h4>Kraunama...</h4>
         <Spinner animation="border" /></div>) : (
         <div >

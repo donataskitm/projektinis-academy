@@ -5,7 +5,7 @@ import about from '../../data/about';
 function About() {
 
   return (
-    <Row>
+    <Row className="mx-3">
       <Col sm={12} className="text-center text-secondary">
         <h4 className="p-5">APIE PROJEKTĄ</h4>
       </Col>

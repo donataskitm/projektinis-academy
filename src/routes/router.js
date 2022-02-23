@@ -30,7 +30,6 @@ align-items: center;
 justify-content: center;
 min-height: 71vh;
 margin: 0;
-padding: 0 2vw 0 2vw;
 `;
 
 function Router() {

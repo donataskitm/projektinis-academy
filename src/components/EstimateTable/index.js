@@ -44,7 +44,7 @@ const EstimateTable = React.forwardRef((props, ref) => {
 
   return (
 
-    <div ref={ref}>
+    <div className="mx-3" ref={ref}>
       {
         itemInStorage.length > 0 ?
           <><Table striped bordered hover responsive="sm">

@@ -23,7 +23,7 @@ const Layout = (props) => {
   };
 
   return (
-    <div className="main">
+    <div className="main gx-0">
       <HeaderContext.Provider
         value={{
           returnItems, returnLogin

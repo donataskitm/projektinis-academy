@@ -5,7 +5,7 @@ import help from '../../data/help';
 function Help() {
 
   return (
-    <Row>
+    <Row className="mx-3">
       <Col sm={12} className="text-center text-secondary">
         <h4 className="p-5">KAIP NAUDOTI?</h4>
       </Col>
