@@ -1,8 +1,33 @@
 .card-style{
-    width: 17rem; 
-    cursor: pointer;
+  width: 17rem; 
+  cursor: pointer;
+  position: relative;
+  text-align: center;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  flex-flow: column wrap;
+  justify-content: flex-end;
+  align-items: center;
 }
+
 .img-style{
-    object-fit: cover;
-    height: 18rem!important;
+  object-fit: cover;
+  height: 22rem!important; 
+}
+
+.bottom-title {
+  position: absolute;
+  font-size: 1.3em;
+  text-shadow: 0 1px 0 black;
+}
+
+.card{
+  box-shadow: 0 6px 10px rgba(0,0,0,.08), 0 0 6px rgba(0,0,0,.05);
+  transition: .3s transform cubic-bezier(.155,1.105,.295,1.12),.3s box-shadow,.3s -webkit-transform cubic-bezier(.155,1.105,.295,1.12);
+}
+
+.card:hover{
+  transform: scale(1.03);
+  box-shadow: 0 10px 20px rgba(0,0,0,.12), 0 4px 8px rgba(0,0,0,.06);
 }

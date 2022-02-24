@@ -30,13 +30,13 @@ const Item = (info) => {
 
     <Card key={info}
       onClick={redirectToCategoryOrPage}
-      className="text-center m-1 card-style">
-      <Card.Body>
-        <Card.Text className="fw-bold text-center">
-          {info.label ? info.label : info.name}
-        </Card.Text>
-      </Card.Body>
-      <Card.Img className="img-style" 
+      className="text-center m-1 card-style ">
+     
+      <Card.Text className="fw-bold bottom-title">
+        {info.label ? info.label : info.name}
+      </Card.Text>
+ 
+      <Card.Img className="img-style bg-gradient-dark text-light" 
         variant="bottom" 
         onError={addDefaultSrc}
         src={`/pic/taxonomy/${info.name}.jpg`}/>

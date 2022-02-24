@@ -32,7 +32,7 @@ function Taxonomy() {
           </div>
         </div>
       )}
-      <div className="justify-content-center">
+      <div className="justify-content-center pt-3">
           
         {page < data.length && 
         <Button name={isLoading ? 'Kraunama...' : 'Rodyti daugiau kategorijų'} 
