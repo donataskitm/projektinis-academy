@@ -1,4 +1,4 @@
-const  makeList = (start, end)=>{
+const  makeItemsPerPageList = (start, end)=>{
   let listBoxItemsArray = [];
   let listBoxItem;
   for (listBoxItem = start; listBoxItem < end; listBoxItem=listBoxItem+listBoxItem){
@@ -8,4 +8,4 @@ const  makeList = (start, end)=>{
   return listBoxItemsArray;
 };
   
-export default makeList;
+export default makeItemsPerPageList;

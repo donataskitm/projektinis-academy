@@ -49,7 +49,7 @@ function Header(props) {
         </NavBar >
       </Column>
       <Column md={2}>
-        <Link to='/samata'>
+        <Link to='/atranka'>
           <img
             src="/pic/search.png"
             className='img-fluid estimate-img'

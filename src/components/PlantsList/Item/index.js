@@ -17,8 +17,8 @@ const Item = (info) => {
           <em className="font-italic">{info.lot_name} </em> {info.author_name}
         </Card.Text>
       </Card.Body>
-      <div className="card-img-container" onClick={info.handler}>
-        <div className="top-right"> 
+      <div className="card-img-container">
+        <div className="top-right" onClick={info.handler}> 
           <img
             src="/pic/estimate.png"
             className='img-fluid hover-shadow'

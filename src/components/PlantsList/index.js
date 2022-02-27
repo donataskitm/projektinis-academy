@@ -1,4 +1,4 @@
-import React, {useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import Item from './Item';
 import { useLocation, useNavigate} from 'react-router-dom';
 import { Spinner } from 'react-bootstrap';
@@ -8,12 +8,14 @@ import useLocalStorage from '../../hooks/useLocalStorage';
 import PropTypes from 'prop-types';
 import { HeaderContext } from '../../contexts/context';
 import headers from '../../data/fetchAttributes';
-import { Modal } from 'react-bootstrap';
+import { Modal} from 'react-bootstrap';
 import { makeApiEndpoint } from '../../services/apiEndpointMaker';
 import { EstimateStorage } from '../../services/estimateStorage';
-import  makeList from '../../services/makeList';
+import  makeItemsPerPageList from '../../services/makeList';
 import { DataTypeConverter } from '../../services/dataTypeConverter';
 import { FIXED_NUMBER_ONE } from '../../config/constants';
+import sortList from '../../data/listBoxSort';
+import sortItems from '../../services/sortItems';
 
 const ITEMS_PER_PAGE = 12;
 
@@ -28,7 +30,8 @@ function PlantsList(props) {
 
   const [currentPage, setCurrentPage] = useState(1);
   const [currentListBox, setListBox] = useState(ITEMS_PER_PAGE);
-
+  const [currentSortList, setSortList] = useState(0);
+  
   let { state } = useLocation();
   const navigate = useNavigate();
   const value = React.useContext(HeaderContext);
@@ -42,9 +45,14 @@ function PlantsList(props) {
     
   let { isLoading, data } = useFetch(apiLink, headers);
   
+  useMemo(() => {
+    sortItems(currentSortList, data);
+  }, [data]);
+  
   const firstPageIndex = (currentPage - 1) * currentListBox;
   const lastPageIndex =  DataTypeConverter.convertStringToNumber(firstPageIndex, FIXED_NUMBER_ONE) + 
     DataTypeConverter.convertStringToNumber(currentListBox, FIXED_NUMBER_ONE);
+
   const currentData = data.slice(firstPageIndex,lastPageIndex);
 
   const handleClick = (item) => {
@@ -59,17 +67,24 @@ function PlantsList(props) {
   function redirectonClick (item) { 
     navigate(`/augalas/${item}`);
   }
-
+  
   function setActiveFirstPagination () {
     setCurrentPage(1);
   }
-
+  
   function fillListBox(event) {
     setListBox(event.target.value);
     setCurrentPage(1);
   }
 
+  function sortItemsList(event){
+    setSortList(event.target.value);
+    sortItems(event.target.value, data);
+  }
+
   props.childRef.setActiveFirstPagination = setActiveFirstPagination;
+
+  const itemsPerPage = makeItemsPerPageList(ITEMS_PER_PAGE, data.length);
 
   return (
     <div className="text-center py-5">
@@ -80,20 +95,40 @@ function PlantsList(props) {
         <Spinner animation="border" /></div>) : (
         <div >
           {data.length > ITEMS_PER_PAGE &&
-          <div className="d-flex align-items-center justify-content-end px-3" >
-            <p className="my-auto"> Rodyti: </p>
-            <select className="border"
-              value={currentListBox} 
-              onChange={fillListBox} 
-              id={currentListBox}>
-              {makeList(ITEMS_PER_PAGE, data.length).map((info, index) => (
-                <option key={index} 
-                  value={info} >
-                  {info}
-                </option>
-              ))}
-            </select>
-          </div>
+         
+         <div className="d-flex justify-content-between m-2 p-2 border rounded">
+           {/* TODO: make listbox component */}
+           <div className="d-flex align-items-center justify-content-end px-3" >
+             <p className="my-auto"> Rikiuoti: </p>
+             <select className="border"
+               value={currentSortList} 
+               onChange={sortItemsList} 
+               id={currentSortList} >
+               {sortList.map((inf, index) => (
+                 <option key={index} 
+                   value={index} >
+                   {inf.name}
+                 </option>
+               ))}
+             </select>
+           </div>
+
+           <div className="d-flex align-items-center justify-content-end px-3" >
+             <p className="my-auto"> Rodyti: </p>
+             <select className="border"
+               value={currentListBox} 
+               onChange={fillListBox} 
+               id="fillListBox">
+               {itemsPerPage.map((info, index) => (
+                 <option key={index} 
+                   value={info} >
+                   {info}
+                 </option>
+               ))}
+             </select>
+           </div>
+         </div>
+
           }
           <div className="d-flex flex-wrap flex-row justify-content-center text-center">
             {data.length ?

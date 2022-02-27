@@ -31,7 +31,6 @@ function SearchBar(props) {
     <Row className="py-5 gx-0">
       <Form onSubmit={handleSubmit}>
         <Row className="g-2 pb-2 m-auto">
-          
           <Form.Group  controlId="formBasicSearch">
             <Col  xs="10" md="6" lg="4" className="d-flex m-auto pt-5 justify-content-center">
               <Form.Control
@@ -48,11 +47,8 @@ function SearchBar(props) {
               {<ErrorMessage message={errors.searchInput} color="text-white"/>}
             </Col>
           </Form.Group>
-          
         </Row>
-       
       </Form>
-
     </Row>
   );
 }
