@@ -1,7 +1,8 @@
-import React, { useState, useMemo } from 'react';
+/* eslint-disable max-lines */
+import React, { useState, useEffect } from 'react';
 import Item from './Item';
 import { useLocation, useNavigate} from 'react-router-dom';
-import { Spinner } from 'react-bootstrap';
+import { Spinner, Col, Row } from 'react-bootstrap';
 import useFetch from '../../hooks/Fetch';
 import Pagination from '../Layout/Pagination';
 import useLocalStorage from '../../hooks/useLocalStorage';
@@ -16,37 +17,41 @@ import { DataTypeConverter } from '../../services/dataTypeConverter';
 import { FIXED_NUMBER_ONE } from '../../config/constants';
 import sortList from '../../data/listBoxSort';
 import sortItems from '../../services/sortItems';
+import "./style.css";
 
 const ITEMS_PER_PAGE = 12;
 
 function PlantsList(props) {
 
   const [itemInStorage, saveItemToStorage] = useLocalStorage("samata", []);
-
   const [message, setState] = useState({
     text: '', 
     showMessage: false
   });
 
-  const [currentPage, setCurrentPage] = useState(1);
-  const [currentListBox, setListBox] = useState(ITEMS_PER_PAGE);
-  const [currentSortList, setSortList] = useState(0);
-  
   let { state } = useLocation();
+
+  const [currentPage, setCurrentPage] = useState(state && state.currentPage  || 1);
+  const [currentListBox, setListBox] = useState(state && state.currentListBox || ITEMS_PER_PAGE);
+  const [currentSortList, setSortList] = useState(state && state.currentSortList || 0);
+
   const navigate = useNavigate();
   const value = React.useContext(HeaderContext);
-
   let apiLink;
+  
   if(props.selection.length !== 0){
     apiLink = process.env.REACT_APP_API_FILTER + makeApiEndpoint.formatLinkPart(props.selection);
   } else {
-    apiLink = state!==null ? state.apiLink : process.env.REACT_APP_API_ALL_POSTS ;
+    apiLink = state!==null ? state.apiLink : process.env.REACT_APP_API_ALL_POSTS;
   }
-    
+
   let { isLoading, data } = useFetch(apiLink, headers);
-  
-  useMemo(() => {
+ 
+  useEffect(() => {
     sortItems(currentSortList, data);
+    if (state && state.currentPage){
+      navigate(-2);
+    }
   }, [data]);
   
   const firstPageIndex = (currentPage - 1) * currentListBox;
@@ -65,11 +70,23 @@ function PlantsList(props) {
   };
 
   function redirectonClick (item) { 
-    navigate(`/augalas/${item}`);
+    const statesSendToPage = {
+      apiLink: apiLink, 
+      currentListBox: currentListBox, 
+      currentPage: currentPage, 
+      currentSortList: currentSortList,
+    };
+    navigate(`/augalas/${item}`, { state: statesSendToPage });
+  }
+
+  function redirectOnDelete () {
+    setCurrentPage(1);
+    navigate("/atranka", { state: {apiLink: process.env.REACT_APP_API_ALL_POSTS } });
   }
   
   function setActiveFirstPagination () {
     setCurrentPage(1);
+    setListBox(ITEMS_PER_PAGE);
   }
   
   function fillListBox(event) {
@@ -83,22 +100,34 @@ function PlantsList(props) {
   }
 
   props.childRef.setActiveFirstPagination = setActiveFirstPagination;
-
   const itemsPerPage = makeItemsPerPageList(ITEMS_PER_PAGE, data.length);
-
   return (
-    <div className="text-center py-5">
+    <Row className="text-center py-5 gx-0">
       <h4 className="text-center pb-3">Dekoratyviniai žoliniai augalai 
         {!isLoading && ` (${data.length})`}
       </h4>
+      {!isLoading && props.selection.length == 0 && state && state.searchKey!==undefined &&
+      <>
+        <Col md={12} className="text-center pb-3">
+          <p className="text-center">Paieškos frazė <b><em>{state && state.searchKey}</em></b></p>
+          <div>
+            <img
+              src="/pic/bin.png"
+              alt='delete'
+              width={35}
+              className="img-fluid bin-style1"
+              onClick={redirectOnDelete}/>
+          </div>
+        </Col>
+      </>
+      }
       {isLoading ? (<div className="text-center mx-auto"><h4>Kraunama...</h4>
         <Spinner animation="border" /></div>) : (
-        <div >
+        <Col>
           {data.length > ITEMS_PER_PAGE &&
-         
-         <div className="d-flex justify-content-between m-2 p-2 border rounded">
+         <Row className="d-flex justify-content-between m-2 p-2 border rounded">
            {/* TODO: make listbox component */}
-           <div className="d-flex align-items-center justify-content-end px-3" >
+           <Col className="d-flex align-items-center px-3" >
              <p className="my-auto"> Rikiuoti: </p>
              <select className="border"
                value={currentSortList} 
@@ -111,9 +140,8 @@ function PlantsList(props) {
                  </option>
                ))}
              </select>
-           </div>
-
-           <div className="d-flex align-items-center justify-content-end px-3" >
+           </Col>
+           <Col className="d-flex align-items-center justify-content-end px-3" >
              <p className="my-auto"> Rodyti: </p>
              <select className="border"
                value={currentListBox} 
@@ -126,17 +154,15 @@ function PlantsList(props) {
                  </option>
                ))}
              </select>
-           </div>
-         </div>
-
+           </Col>
+         </Row>
           }
           <div className="d-flex flex-wrap flex-row justify-content-center text-center">
             {data.length ?
               currentData.map((info, index) => (<Item key={index} {...info} 
                 handler={() => handleClick(info)} 
-                handleSubmit= {() => redirectonClick(info.id)}/>
-              )) :
-              <h5> Duomenų nėra. </h5>
+                handleSubmit = {() => redirectonClick(info.id)}/>
+              )) : <h5> Duomenų nėra. </h5>
             }
           </div>
           <div className="m-4">
@@ -144,8 +170,7 @@ function PlantsList(props) {
               currentPage={currentPage}
               totalCount={data.length}
               pageSize={DataTypeConverter.convertStringToNumber(currentListBox, FIXED_NUMBER_ONE)}
-              onPageChange={page => setCurrentPage(page)}
-            />
+              onPageChange={page => setCurrentPage(page)}/>
           </div>
           <Modal
             size="sm"
@@ -158,9 +183,9 @@ function PlantsList(props) {
               </Modal.Title>
             </Modal.Header>
           </Modal>
-        </div>
+        </Col>
       )}
-    </div>
+    </Row>
   );
 }
 

@@ -2,7 +2,7 @@ import React from 'react';
 import Button from '../../components/Button';
 import { Spinner, Row, Col } from 'react-bootstrap';
 import useFetch from '../../hooks/Fetch';
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, useLocation } from "react-router-dom";
 import TaxonomyName from '../../components/Plants/taxonomyName';
 import headers from '../../data/fetchAttributes';
 import { DataTypeChecker } from '../../services/dataTypeChecker';
@@ -11,12 +11,21 @@ function Plant() {
 
   const { id } = useParams();
   const navigation = useNavigate();
-  
+  let { state } = useLocation();
   const { isLoading, data } = useFetch(process.env.REACT_APP_API_POST + id, headers);
 
-
-  const back = ()=>{
-    navigation('/atranka');
+  const backToPreviuosPage = ()=>{
+    if (state) {
+      const statesReceived = {
+        apiLink: state.apiLink, 
+        currentListBox: state.currentListBox, 
+        currentPage: state.currentPage, 
+        currentSortList: state.currentSortList
+      };
+      navigation("/atranka", {state: statesReceived});
+    }else {
+      navigation("/atranka");
+    }
   };
 
   return (
@@ -67,7 +76,7 @@ function Plant() {
           </div>
         )}
         <div className="py-5">
-          <Button name={"Atgal"} color={"success"} onClick={back}></Button>
+          <Button name={"Atgal"} color={"success"} onClick={backToPreviuosPage}></Button>
         </div>
       </div>
     </Row>

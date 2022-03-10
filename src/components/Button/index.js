@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 
 function Button(props) {
 
-
   return (
     <div className="text-center">
       <BootstrapButton
@@ -18,7 +17,7 @@ function Button(props) {
 Button.propTypes = {
   color: PropTypes.string.isRequired,
   onClick: PropTypes.func,
-  name: PropTypes.string.isRequired
+  name: PropTypes.oneOfType([PropTypes.object, PropTypes.string]).isRequired
 };
 
 Button.defaultProps = {

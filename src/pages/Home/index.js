@@ -12,17 +12,17 @@ function Home() {
         <Row className="gx-0">
           <Col >
             <Row className="gx-0">
-              <Col sm={12} className="text-center text-white ">
+              <Col sm={12} className="text-center text-white pb-5">
                 <h3>Parink dekoratyvinius žolinius augalus savo svajonių želdynui</h3>
               </Col>
-              <Col sm={12}>
-                <SearchBar placeholder="Įvesk augalo vardą" />
+              <Col xs="9" md="6" lg="5" sm="8" className="py-5 m-auto">
+                <SearchBar placeholder="Įvesk augalo vardą" errorColor="text-white"/>
               </Col>
             </Row>
           </Col>
         </Row>
       </Col>
-      <Col sm={12}>
+      <Col>
         <Row className="gx-0">
           <Col sm={12}>
             <Plants />

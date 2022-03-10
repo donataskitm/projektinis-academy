@@ -12,12 +12,13 @@ function SearchBar(props) {
 
   const navigate = useNavigate();
   const initialState = {searchInput:''};
-  
+
   const redirectSearch = (errors) => {
     if (Object.keys(errors).length === 0){
       const apiLink = process.env.REACT_APP_API_SEARCH + inputs.searchInput;
       saveItemToStorage([]);
-      navigate('/atranka', { state: { apiLink: apiLink } });
+      props.onClick();
+      navigate('/atranka', { state: { apiLink: apiLink, searchKey: inputs.searchInput} });
     } 
   };
 
@@ -28,11 +29,11 @@ function SearchBar(props) {
   const [, saveItemToStorage] = useLocalStorage("input", []);
   
   return (
-    <Row className="py-5 gx-0">
+    <Row className="gx-0 justify-content-center">
       <Form onSubmit={handleSubmit}>
-        <Row className="g-2 pb-2 m-auto">
+        <Row className="g-2 pb-2 ">
           <Form.Group  controlId="formBasicSearch">
-            <Col  xs="10" md="6" lg="4" className="d-flex m-auto pt-5 justify-content-center">
+            <Col  className="d-flex m-auto pt-2 ">
               <Form.Control
                 name="searchInput"
                 placeholder={props.placeholder}
@@ -40,11 +41,17 @@ function SearchBar(props) {
                 value={inputs.searchInput}
                 onKeyPress={(event) => event.key === 'Enter' && handleSubmit} /> 
               <Button
-                name={"Ieškoti"}
-                color={"success"}/>
+                name={ <img
+                  src="/pic/search.png"
+                  className='img-fluid estimate-img'
+                  alt='search'
+                  width="30px"/>}
+                color={"success"}
+                onclick={props.onClick}
+              />
             </Col>
             <Col className="text-center">
-              {<ErrorMessage message={errors.searchInput} color="text-white"/>}
+              {<ErrorMessage message={errors.searchInput} color={props.errorColor}/>}
             </Col>
           </Form.Group>
         </Row>
@@ -55,6 +62,13 @@ function SearchBar(props) {
 
 SearchBar.propTypes = {
   placeholder: PropTypes.string.isRequired,
+  onClick: PropTypes.func,
+  errorColor: PropTypes.string
+};
+
+SearchBar.defaultProps ={
+  onClick: ()=>{},
+  errorColor: "text-danher"
 };
 
 export default SearchBar;

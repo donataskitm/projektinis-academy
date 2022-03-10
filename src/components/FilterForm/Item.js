@@ -8,6 +8,7 @@ import "./style.css";
 import headers from '../../data/fetchAttributes';
 
 const Item = (props) => {
+
   const constants = {
     'widthListWithBin': 11,
     'widthListNoBin': 12,
@@ -18,10 +19,10 @@ const Item = (props) => {
   const { data } = useFetch(process.env.REACT_APP_API_CAT_OF_TAX + props.name+'?per_page=100', headers);
 
   const value = React.useContext(CategoryContext);
-  
-  let isFoundItem = (value.itemInStorage).filter((storedItem) => storedItem.category === props.name);
-  const selectedItem = isFoundItem.length > 0;
-  const selectValue = selectedItem ? isFoundItem[0].id : "";
+  let foundItem;
+  foundItem = (value.itemInStorage).filter((storedItem) => storedItem.category === props.name);
+  const selectedItem = foundItem.length > 0;
+  const selectValue = selectedItem ? foundItem[0].id : "";
   const selectWidth = selectedItem ? constants.widthListWithBin : constants.widthListNoBin;
   const binWidth = selectedItem ? constants.widthWithBin : constants.widthNoBin;
   const selectStyle = selectedItem ? 'border border-success border-2' : "" ;
@@ -30,7 +31,7 @@ const Item = (props) => {
       src="/pic/bin.png"
       className='img-fluid hover-shadow bin-style'
       alt='delete'
-      onClick={() =>{value.deleteSelection(isFoundItem[0]), value.recalculatePagination();}}
+      onClick={() =>{value.deleteSelection(foundItem[0]), value.recalculatePagination();}}
     /> : "";
 
   return (
@@ -64,5 +65,10 @@ const Item = (props) => {
 Item.propTypes = {
   label: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
+  refresh: PropTypes.bool,
+};
+
+Item.defaultProps = {
+  refresh: false,
 };
 export default Item;

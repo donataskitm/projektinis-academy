@@ -22,12 +22,12 @@ export const usePagination = ({
     const TWO_BUTTONS = 2;
     const THREE_BUTTONS = 3;
 
-
     const totalPageNumbers = siblingCount + FIRST_LAST_CURRENT_2DOTS;
 
     if (totalPageNumbers >= totalPageCount) {
       return range(FIRST_PAGE, totalPageCount);
     }
+
     const leftSiblingIndex = Math.max(currentPage - siblingCount, 1);
     const rightSiblingIndex = Math.min(
       currentPage + siblingCount,
@@ -39,7 +39,7 @@ export const usePagination = ({
 
     const firstPageIndex = 1;
     const lastPageIndex = totalPageCount;
-
+    
     if (!shouldShowLeftDots && shouldShowRightDots) {
       let leftItemCount = THREE_BUTTONS + TWO_BUTTONS * siblingCount;
       let leftRange = range(1, leftItemCount);
@@ -60,6 +60,7 @@ export const usePagination = ({
       let middleRange = range(leftSiblingIndex, rightSiblingIndex);
       return [firstPageIndex, DOTS, ...middleRange, DOTS, lastPageIndex];
     }
+
   }, [totalCount, pageSize, siblingCount, currentPage]);
 
   return paginationRange;
